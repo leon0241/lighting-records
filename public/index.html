@@ -4,23 +4,59 @@
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>typing records</title>
+   <title>Lighting records</title>
+   <link rel="stylesheet" href="styles/styles.css">
+   <script type="text/javascript" src="scripts/main.js" defer></script>
 </head>
 <body>
    <nav>
-      <button>
-
+      <button class="navButton" id="viewRecords">
+         view
       </button>
-      <button>
-
+      <button class="navButton" id="add" onclick="">
+         add
       </button>
-      <h1>
-         Lighting desk Records
-      </h1>
+      <div id="title">
+         <h1>
+            Lighting desk Records
+         </h1>
+      </div>
    </nav>
    <main>
       <section id="add">
-
+         <h2>Add words</h2>
+            <form action="" id="addContainer">
+               <div class="innerLayer" id="addAuthor">
+                  <label for="authorName">Artist</label>
+                  <input type="text" name="authorName">
+               </div>
+               <div class="innerLayer" id="addRecords">
+                 <div class="recordGroup" id="recordData1">
+                   <div class="inputsection" id="mainInput">
+                      <section class="mainInputBox">
+                         <label for="recordName">Record Name</label>
+                         <input type="text">
+                      </section>
+                      <section class="mainInputBox">
+                         <label for="recordYear">Record Year</label>
+                        <input type="text">
+                      </section>
+                   </div>
+                   <div class="inputsection" id="otherInput">
+                     <input type="checkbox" name="originalCover" id="originalCover">
+                     <label for="originalCover">Original cover</label>
+                     <input type="checkbox" name="damagedCover" id="damagedCover">
+                     <label for="damagedCover">Damaged Cover</label>
+                     <input type="checkbox" name="duplicate" id="duplicate">
+                     <label for="duplicate">Duplicate</label>
+                   </div>
+                 </div>
+                  <div class="inputsection" id="submitbuttons">
+                    <button type="button" name="addAnotherRecord" class="submit" id="addAnotherRecord">Add another record by same artist</button>
+                    <button type="submit" name="submit" class="submit">Submit</button>
+                  </div>
+               </div>
+            </form>
       </section>
       <section id="view">
 

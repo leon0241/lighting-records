@@ -1,0 +1,86 @@
+body{
+  padding: 0;
+  margin: 0;
+}
+
+div{
+  border: 1px solid;
+}
+
+nav{
+  display: flex;
+  flex-direction: row;
+  background-color: lightgray;
+  padding: 15px;
+}
+
+#title{
+  margin-left: auto;
+}
+
+#title>h1{
+  margin: 0;
+}
+
+#addContainer {
+  border: 1px solid;
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  max-height: 420px;
+  padding: 25px;
+}
+
+#mainInput {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+#mainInput>section {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+
+#addAuthor {
+  flex: 1 1 0;
+  margin-right: 5px;
+}
+
+#addAuthor > * {
+  margin: 10px;
+}
+
+#addRecords {
+  flex: 2 1 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  max-height: inherit;
+}
+
+.innerLayer{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.inputsection{
+  margin: 10px;
+}
+
+#submitbuttons{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-top: auto;
+  order: 99;
+}
+
+.submit{
+  margin: 1px;
+}
+
+.recordGroup{
+  margin: 10px;
+}
