@@ -5,22 +5,49 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>typing records</title>
+   <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
    <nav>
-      <button>
-
+      <button class="navButton" id="viewRecords">
+         view
       </button>
-      <button>
-
+      <button class="navButton" id="addRecord">
+         add
       </button>
-      <h1>
-         Lighting desk Records
-      </h1>
+      <div id="title">
+         <h1>
+            Lighting desk Records
+         </h1>
+      </div>
    </nav>
    <main>
       <section id="add">
-
+         <h2>Add words</h2>
+         <div id="addContainer">
+            <form action="">
+               <div class="innerLayer" id="addAuthor">
+                  <label for="authorName"></label>
+                  <input type="text" name="authorName">
+               </div>
+               <div class="innerLayer" id="addRecords">
+                  <div id="mainInput">
+                     <section>
+                        <label for="recordName">Record Name</label>
+                        <input type="text">
+                     </section>
+                     <section>
+                        <label for="recordArtist">Record Artist</label>
+                        <input type="text">
+                     </section>
+                     <section>
+                        <label for="recordYear">Record Year</label>
+                       <input type="text">
+                     </section>                     
+                  </div>
+               </div>
+            </form>
+         </div>
       </section>
       <section id="view">
 
