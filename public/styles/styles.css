@@ -47,7 +47,7 @@ nav #title > h1 {
 #addView #recordForm .formSeparators {
   padding: 15px;
 }
-#addView #recordForm #addAuthor {
+#addView #recordForm #addArtist {
   flex: 0 1 0;
 }
 #addView #recordForm #addRecords {

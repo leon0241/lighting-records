@@ -6,24 +6,42 @@ let index = 1;
 
 addButton.addEventListener("click", (e) => {
 	index += 1;
+	// Copy nodes
 	let newGroup = group.cloneNode(true);
+	// Array from input row, and check row
 	let rows = [newGroup.childNodes[1], newGroup.childNodes[3]];
+
+	// For each for both rows
 	rows.forEach((row) => {
-		console.log(row)
+		// Array from nodes in row
 		let rowArray = [...row.childNodes]
-		console.log(rowArray)
+
+		//For each for nodes in row
 		rowArray.forEach((item) => {
-			console.log(item.nodeName)
+			// Check if type is input
 			if (item.nodeName === "INPUT") {
-				let prevID = item.id
-				let newID = `${prevID.slice(0, -1)}${index}`
-				console.log(newID)
-				item.id = newID
-				item.setAttribute("name", newID)
+				// get ID
+				let preVal = item.id
+				// Remove number from end and add index
+				let newVal = `${preVal.slice(0, -1)}${index}`
+
+				// Set ID and name attribute to newID
+				item.id = newVal
+				item.setAttribute("name", newVal)
+
+				if(item.getAttribute("type") === "text") {
+					item.value = ""	
+				} else {
+					item.checked = false
+				}
+
+			// Check if type is label
 			} else if (item.nodeName === "LABEL") {
-				let prevID = item.getAttribute("for")
-				let newID = `${prevID.slice(0, -1)}${index}`
-				item.setAttribute("for", newID)
+				// Get for attribute
+				let preVal = item.getAttribute("for")
+				// Set new attribute
+				let newVal = `${preVal.slice(0, -1)}${index}`
+				item.setAttribute("for", newVal)
 			}
 		})
 	})
@@ -32,6 +50,9 @@ addButton.addEventListener("click", (e) => {
 	console.log(newGroup)
 	container.appendChild(newGroup);
 	container.scrollTop = container.scrollHeight;
+
+	let currentInput = document.getElementById(`songTitle${index}`)
+	currentInput.focus()
 });
 
 // let db = firebase.firestore();

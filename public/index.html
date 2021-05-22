@@ -36,9 +36,12 @@
 			<section id="addView">
 				<h2>Add words</h2>
 				<form id="recordForm" onsubmit="test();return false">
-					<section class="formSeparators" id="addAuthor">
-						<label for="authorName">Artist</label>
-						<input type="text" name="authorName" />
+					<section class="formSeparators" id="addArtist">
+						<label for="artistBand">Artist(s)</label>
+						<input type="text" name="artistBand" placeholder="separate values with |"/>
+
+						<input type="checkbox" name="artistBand" id="artistBand">
+						<label for="artistBand">Band</label>
 					</section>
 
 					<section class="formSeparators" id="addRecords">
