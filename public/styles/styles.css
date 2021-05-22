@@ -1,24 +1,24 @@
-body{
+body {
   padding: 0;
   margin: 0;
 }
 
-div{
+div {
   border: 1px solid;
 }
 
-nav{
+nav {
   display: flex;
   flex-direction: row;
   background-color: lightgray;
   padding: 15px;
 }
 
-#title{
+#title {
   margin-left: auto;
 }
 
-#title>h1{
+#title > h1 {
   margin: 0;
 }
 
@@ -37,7 +37,7 @@ nav{
   justify-content: space-evenly;
 }
 
-#mainInput>section {
+#mainInput > section {
   display: flex;
   flex-direction: column;
   padding: 5px;
@@ -59,17 +59,17 @@ nav{
   max-height: inherit;
 }
 
-.innerLayer{
+.innerLayer {
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
-.inputsection{
+.inputsection {
   margin: 10px;
 }
 
-#submitbuttons{
+#submitbuttons {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -77,10 +77,12 @@ nav{
   order: 99;
 }
 
-.submit{
+.submit {
   margin: 1px;
 }
 
-.recordGroup{
+.recordGroup {
   margin: 10px;
 }
+
+/*# sourceMappingURL=styles.css.map */
