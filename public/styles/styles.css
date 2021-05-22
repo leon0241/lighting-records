@@ -3,8 +3,17 @@ body {
   margin: 0;
 }
 
-div {
-  border: 1px solid;
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
 }
 
 nav {
@@ -13,76 +22,62 @@ nav {
   background-color: lightgray;
   padding: 15px;
 }
-
-#title {
+nav #title {
   margin-left: auto;
 }
-
-#title > h1 {
+nav #title > h1 {
   margin: 0;
 }
 
-#addContainer {
-  border: 1px solid;
-  display: flex;
-  flex-direction: row;
-  height: auto;
-  max-height: 420px;
-  padding: 25px;
-}
-
-#mainInput {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-}
-
-#mainInput > section {
+#addView {
   display: flex;
   flex-direction: column;
-  padding: 5px;
+  align-items: center;
+  height: 100%;
+}
+#addView #recordForm {
+  border: 1px solid;
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  height: auto;
+  max-height: 450px;
+  padding: 25px;
+}
+#addView #recordForm .formSeparators {
+  padding: 15px;
+}
+#addView #recordForm #addAuthor {
+  flex: 0 1 0;
+}
+#addView #recordForm #addRecords {
+  display: flex;
+  flex-direction: column;
 }
 
-#addAuthor {
-  flex: 1 1 0;
-  margin-right: 5px;
-}
-
-#addAuthor > * {
-  margin: 10px;
+#recordForm div, #recordForm section {
+  border: 1px solid;
 }
 
 #addRecords {
-  flex: 2 1 0;
-  overflow-x: hidden;
   overflow-y: scroll;
+  overflow-x: hidden;
+  min-height: inherit;
   max-height: inherit;
 }
-
-.innerLayer {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.inputsection {
+#addRecords > * {
+  padding: 10px;
   margin: 10px;
 }
-
-#submitbuttons {
+#addRecords .recordGroup > div {
+  padding: 5px;
+}
+#addRecords #submitGroup {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   margin-top: auto;
   order: 99;
-}
-
-.submit {
-  margin: 1px;
-}
-
-.recordGroup {
-  margin: 10px;
 }
 
 /*# sourceMappingURL=styles.css.map */

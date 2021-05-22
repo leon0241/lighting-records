@@ -1,7 +1,0 @@
-{
-   "compilerOptions": {
-      // "outDir": "public/scripts",
-      "target": "ESNext",
-      "lib": ["dom", "es2017"]
-   }
-}
