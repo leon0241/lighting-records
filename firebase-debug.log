@@ -1,13 +1,32 @@
-[debug] [2021-05-23T00:23:03.632Z] ----------------------------------------------------------------------
-[debug] [2021-05-23T00:23:03.634Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Leon\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
-[debug] [2021-05-23T00:23:03.634Z] CLI Version:   9.11.0
-[debug] [2021-05-23T00:23:03.634Z] Platform:      win32
-[debug] [2021-05-23T00:23:03.635Z] Node Version:  v12.18.0
-[debug] [2021-05-23T00:23:03.636Z] Time:          Sun May 23 2021 01:23:03 GMT+0100 (British Summer Time)
-[debug] [2021-05-23T00:23:03.636Z] ----------------------------------------------------------------------
+[debug] [2021-05-23T02:03:46.087Z] ----------------------------------------------------------------------
+[debug] [2021-05-23T02:03:46.089Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Leon\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2021-05-23T02:03:46.089Z] CLI Version:   9.11.0
+[debug] [2021-05-23T02:03:46.089Z] Platform:      win32
+[debug] [2021-05-23T02:03:46.089Z] Node Version:  v12.18.0
+[debug] [2021-05-23T02:03:46.091Z] Time:          Sun May 23 2021 03:03:46 GMT+0100 (British Summer Time)
+[debug] [2021-05-23T02:03:46.091Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2021-05-23T00:23:03.643Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2021-05-23T00:23:03.644Z] > authorizing via signed-in user (enliang.leon.lee@gmail.com)
-[debug] [2021-05-23T00:23:03.644Z] [iam] checking project lighting-records for permissions ["firebase.projects.get"]
-[debug] [2021-05-23T00:23:03.646Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/lighting-records:testIamPermissions  
+[debug] [2021-05-23T02:03:46.098Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-05-23T02:03:46.099Z] > authorizing via signed-in user (enliang.leon.lee@gmail.com)
+[debug] [2021-05-23T02:03:46.099Z] [iam] checking project lighting-records for permissions ["firebase.projects.get"]
+[debug] [2021-05-23T02:03:46.101Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/lighting-records:testIamPermissions  
  {"permissions":["firebase.projects.get"]}
+[debug] [2021-05-23T02:03:46.794Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 23 May 2021 02:03:46 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=549","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-05-23T02:03:46.796Z] > refreshing access token with scopes: []
+[debug] [2021-05-23T02:03:46.796Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-05-23T02:03:46.945Z] <<< HTTP RESPONSE 200 {"date":"Sun, 23 May 2021 02:03:46 GMT","pragma":"no-cache","cache-control":"no-cache, no-store, max-age=0, must-revalidate","expires":"Mon, 01 Jan 1990 00:00:00 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-05-23T02:03:46.962Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/lighting-records [none]
+[debug] [2021-05-23T02:03:47.213Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/lighting-records 200
+[debug] [2021-05-23T02:03:47.213Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/lighting-records {"projectId":"lighting-records","projectNumber":"969328995372","displayName":"lighting-records","name":"projects/lighting-records","resources":{"hostingSite":"lighting-records","realtimeDatabaseInstance":"lighting-records-default-rtdb","storageBucket":"lighting-records.appspot.com","locationId":"europe-west"},"state":"ACTIVE"}
+[info] 
+[info] === Serving from 'C:\Users\Leon\Documents\Code\Web Design\lighting-records-lol\lighting-records'...
+[info] 
+[debug] [2021-05-23T02:03:47.215Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/lighting-records/sites 
+[debug] [2021-05-23T02:03:48.012Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/lighting-records/sites 200
+[debug] [2021-05-23T02:03:48.012Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/lighting-records/sites {"sites":[{"name":"projects/969328995372/sites/lighting-records","defaultUrl":"https://lighting-records.web.app","appId":"1:969328995372:web:9c84bc7e5a3ff9460c3589","type":"DEFAULT_SITE"}]}
+[debug] [2021-05-23T02:03:48.012Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/lighting-records/webApps/1:969328995372:web:9c84bc7e5a3ff9460c3589/config [none]
+[debug] [2021-05-23T02:03:48.724Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/lighting-records/webApps/1:969328995372:web:9c84bc7e5a3ff9460c3589/config 200
+[debug] [2021-05-23T02:03:48.724Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/lighting-records/webApps/1:969328995372:web:9c84bc7e5a3ff9460c3589/config {"projectId":"lighting-records","appId":"1:969328995372:web:9c84bc7e5a3ff9460c3589","databaseURL":"https://lighting-records-default-rtdb.europe-west1.firebasedatabase.app","storageBucket":"lighting-records.appspot.com","locationId":"europe-west","apiKey":"AIzaSyBMOMsNAbNDLCIh1Fozdl7x8SfFa8aetNY","authDomain":"lighting-records.firebaseapp.com","messagingSenderId":"969328995372","measurementId":"G-S84D704LP2"}
+[info] i  hosting: Serving hosting files from: public {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mpublic\u001b[22m"}}
+[info] +  hosting: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}

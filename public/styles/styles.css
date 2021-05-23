@@ -110,4 +110,11 @@ nav #title > h1 {
   display: none;
 }
 
+#allrecords {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  font-size: 2rem;
+}
+
 /*# sourceMappingURL=styles.css.map */
