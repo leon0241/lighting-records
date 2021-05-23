@@ -26,8 +26,8 @@
 	</head>
 	<body>
 		<nav>
-			<button class="navButton" id="viewRecords">view</button>
-			<button class="navButton" id="add" onclick="">add</button>
+			<button class="navButton" id="viewRecordsBtn">view</button>
+			<button class="navButton" id="addRecordsBtn">add</button>
 			<div id="title">
 				<h1>Lighting desk Records</h1>
 			</div>
@@ -35,32 +35,53 @@
 		<main>
 			<section id="addView">
 				<h2>Add words</h2>
-				<form id="recordForm" onsubmit="test();return false">
+				<form id="recordForm" onsubmit="submitForm(this);return false">
 					<section class="formSeparators" id="addArtist">
-						<label for="artistBand">Artist(s)</label>
-						<input type="text" name="artistBand" placeholder="separate values with |"/>
+						<div>
+							<label for="artistName">Artist</label>
+							<input type="text" name="artistName" id="artistName"/>
+						</div>
 
-						<input type="checkbox" name="artistBand" id="artistBand">
-						<label for="artistBand">Band</label>
+						<div>
+							<input type="checkbox" name="artistBand" id="artistBand">
+							<label for="artistBand" id="forArtistBand">Band</label>
+						</div>
+
+						<p id="noArtistFound" class="artistHandler">
+							A new artist will be created with this name
+						</p>
+						<p id="artistFound" class="artistHandler">
+							An artist was found with that name.
+						</p>
 					</section>
 
 					<section class="formSeparators" id="addRecords">
-						<section class="recordGroup" id="recordGroup1">
+						<section class="recordGroup" id="recordGroup0">
 							<div class="inputRow">
-								<label for="songTitle1" class="recordLabel">Record Title</label>
-								<input type="text" name="songTitle1" id="songTitle1" class="recordInput">
+								<div>
+									<label for="songTitle0" class="recordLabel">Record Title</label>
+									<input type="text" name="songTitle0" id="songTitle0" class="recordInput">
+								</div>
 
-								<label for="songYear1" class="recordLabel">Record Year</label>
-								<input type="text" name="songYear1" id="songYear1" class="recordInput">
+								<div>
+									<label for="songYear0" class="recordLabel">Record Year</label>
+									<input type="text" name="songYear0" id="songYear0" class="recordInput">
+								</div>
 							</div>
 
 							<div class="checkRow">
-								<input type="checkbox" name="coverArt1" id="coverArt1"/>
-								<label for="coverArt1">Original cover</label>
-								<input type="checkbox" name="coverDmg1" id="coverDmg1" />
-								<label for="coverDmg1">Damaged Cover</label>
-								<input type="checkbox" name="duplicate1" id="duplicate1" />
-								<label for="duplicate1">Duplicate</label>
+								<div>
+									<input type="checkbox" name="coverArt0" id="coverArt0"/>
+									<label for="coverArt0">Original cover</label>
+								</div>
+								<div>
+									<input type="checkbox" name="coverDmg0" id="coverDmg0" />
+									<label for="coverDmg0">Damaged Cover</label>
+								</div>
+								<div>
+									<input type="checkbox" name="duplicate0" id="duplicate0" />
+									<label for="duplicate0">Duplicate</label>
+								</div>
 							</div>
 						</section>
 
@@ -78,7 +99,11 @@
 			</section>
 
 			<section id="viewView">
-
+				<table>
+					<tr>
+						<th>table</th>
+					</tr>
+				</table>
 			</section>
 		</main>
 	</body>

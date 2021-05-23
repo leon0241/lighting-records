@@ -1,0 +1,13 @@
+[debug] [2021-05-23T00:23:03.632Z] ----------------------------------------------------------------------
+[debug] [2021-05-23T00:23:03.634Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Leon\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2021-05-23T00:23:03.634Z] CLI Version:   9.11.0
+[debug] [2021-05-23T00:23:03.634Z] Platform:      win32
+[debug] [2021-05-23T00:23:03.635Z] Node Version:  v12.18.0
+[debug] [2021-05-23T00:23:03.636Z] Time:          Sun May 23 2021 01:23:03 GMT+0100 (British Summer Time)
+[debug] [2021-05-23T00:23:03.636Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-05-23T00:23:03.643Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-05-23T00:23:03.644Z] > authorizing via signed-in user (enliang.leon.lee@gmail.com)
+[debug] [2021-05-23T00:23:03.644Z] [iam] checking project lighting-records for permissions ["firebase.projects.get"]
+[debug] [2021-05-23T00:23:03.646Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/lighting-records:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}

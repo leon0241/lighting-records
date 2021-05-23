@@ -49,6 +49,7 @@ nav #title > h1 {
 }
 #addView #recordForm #addArtist {
   flex: 0 1 0;
+  display: flex;
 }
 #addView #recordForm #addRecords {
   display: flex;
@@ -57,6 +58,25 @@ nav #title > h1 {
 
 #recordForm div, #recordForm section {
   border: 1px solid;
+}
+
+#addArtist > div {
+  border: none;
+  padding: 0 5px;
+}
+#addArtist .disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+#addArtist .artistHandler {
+  display: none;
+  margin: 0 0 0 auto;
+}
+#addArtist #noArtistFound {
+  color: red;
+}
+#addArtist #artistFound {
+  color: green;
 }
 
 #addRecords {
@@ -70,7 +90,13 @@ nav #title > h1 {
   margin: 10px;
 }
 #addRecords .recordGroup > div {
+  display: flex;
+  flex-direction: row;
   padding: 5px;
+}
+#addRecords .recordGroup > div > div {
+  border: 0;
+  margin: 0 5px;
 }
 #addRecords #submitGroup {
   display: flex;
@@ -78,6 +104,10 @@ nav #title > h1 {
   justify-content: flex-end;
   margin-top: auto;
   order: 99;
+}
+
+#viewView {
+  display: none;
 }
 
 /*# sourceMappingURL=styles.css.map */
