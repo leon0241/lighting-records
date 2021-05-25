@@ -34,8 +34,8 @@
 		</nav>
 		<main>
 			<section id="addView">
-				<h2>Add words</h2>
-				<form id="recordForm" onsubmit="submitForm(this);return false">
+				<h2>Add records</h2>
+				<form class="mainContainer" id="recordForm" onsubmit="submitForm(this);return false">
 					<section class="formSeparators" id="addArtist">
 						<div>
 							<label for="artistName">Artist</label>
@@ -99,8 +99,107 @@
 			</section>
 
 			<section id="viewView">
-				<div id="allrecords">
-					<span>Song - Artist - Damaged sleeve - Duplicate - Original art - Year</span>
+				<h2>View records</h2>
+				<div class="mainContainer" id="viewRecordsContainer">
+					<section id="queryingContainer" class="containerSeparator">
+						<div id="searchBar">
+							<button id="filterToggle" type="button"></button>
+							<input type="text" id="searchBarInput">
+						</div>
+						<div id="queryFields">
+							<section id="queryTickFields">
+								<div class="queryTickContainer">
+									<input type="checkbox" name="queryCover" id="queryCover" class="queryTickInput">
+									<label for="queryCover">Original Cover</label>
+								</div>
+
+								<div class="queryTickContainer">
+									<input type="checkbox" name="queryDmg" id="queryDmg" class="queryTickInput">
+									<label for="queryDmg">Damaged Cover</label>
+								</div>
+
+								<div class="queryTickContainer">
+									<input type="checkbox" name="queryDupe" id="queryDupe" class="queryTickInput">
+									<label for="queryDupe">Duplicates</label>
+								</div>
+
+								<div class="queryTickContainer">
+									<input type="checkbox" name="queryBand" id="queryBand" class="queryTickInput">
+									<label for="queryBand">Band</label>
+								</div>
+							</section>
+							<section id="querySearchFields">
+								<div class="querySearchContainer">
+									<label for="queryTitle">Filter Title: </label>
+									<input type="text" name="queryTitle" id="queryTitle" class="querySearchInput">
+								</div>
+
+								<div class="querySearchContainer">
+									<label for="queryArtist">Filter Artist: </label>
+									<input type="text" name="queryArtist" id="queryArtist" class="querySearchInput">
+								</div>
+
+								<div class="querySearchContainer">
+									<label for="queryYear">Filter Years: </label>
+									<input type="range" name="queryYear" id="queryYearMin" class="querySearchInput">
+									<input type="range" name="queryYear" id="queryYearMax" class="querySearchInput">
+								</div>
+
+								<div class="querySearchContainer">
+									<label for="querySort">Sort by: </label>
+									<select name="querySort" id="querySort">
+										<option value="sortTitle">Title</option>
+										<option value="sortArtist">Artist</option>
+										<option value="sortYeaer">Year</option>
+									</select>
+								</div>
+							</section>
+							<section id="querySortFields">
+								<div class="querySortContainer">
+									<input type="checkbox" name="titleColumn" id="titleColumn" class="queryColumns">
+									<label for="titleColumn">Title</label>
+									
+									<input type="checkbox" name="artistColumn" id="artistColumn" class="queryColumns">
+									<label for="artistColumn">Artist</label>
+									
+									<input type="checkbox" name="yearColumn" id="yearColumn" class="queryColumns">
+									<label for="yearColumn">Year</label>
+									
+									<input type="checkbox" name="artColumn" id="artColumn" class="queryColumns">
+									<label for="artColumn">Original cover</label>
+									
+									<input type="checkbox" name="dupeColumn" id="dupeColumn" class="queryColumns">
+									<label for="dupeColumn">Duplicate</label>
+									
+									<input type="checkbox" name="dmgColumn" id="dmgColumn" class="queryColumns">
+									<label for="dmgColumn">Damaged</label>
+								</div>
+							</section>
+						</div>
+					</section>
+					<table id="recordTable" class="containerSeparator">
+						<colgroup>
+							<col class="tableCol" id="colTitle">
+							<col class="tableCol" id="colArtist">
+							<col class="tableCol" id="colYear">
+							<col class="tableCol tableColCheck" id="colArt">
+							<col class="tableCol tableColCheck" id="colDupe">
+							<col class="tableCol tableColCheck" id="colDmg">
+						</colgroup>
+						<thead>
+							<tr>
+								<th class="tableHeader">Song</th>
+								<th class="tableHeader">Artist</th>
+								<th class="tableHeader">Year</th>
+								<th class="tableHeader">Art</th>
+								<th class="tableHeader">Dupe</th>
+								<th class="tableHeader">Dmg</th>
+							</tr>
+						</thead>
+						<tbody id="tableBody">
+
+						</tbody>
+					</table>
 				</div>
 			</section>
 		</main>

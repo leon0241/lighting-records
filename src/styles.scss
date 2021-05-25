@@ -31,17 +31,30 @@ nav {
 	}
 }
 
-#addView{
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	height: 100%;
-
-	#recordForm {
-		border: 1px solid;
+main {
+	#addView {
 		display: flex;
 		flex-direction: column;
+		align-items: center;
+		height: 100%;
+	}
+
+	#viewView {
+		display: none;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.mainContainer {
 		width: 70%;
+		border: 1px solid;
+	}
+}
+
+#addView{
+	#recordForm {
+		display: flex;
+		flex-direction: column;
 		height: auto;
 		max-height: 450px;
 		padding: 25px;
@@ -58,6 +71,10 @@ nav {
 		#addRecords {
 			display: flex;
 			flex-direction: column;
+			overflow-y: scroll;
+			overflow-x: hidden;
+			min-height: inherit;
+			max-height: inherit;
 		}
 	}
 }
@@ -93,11 +110,6 @@ nav {
 }
 
 #addRecords {
-	overflow-y: scroll;
-	overflow-x: hidden;
-	min-height: inherit;
-	max-height: inherit;
-
 	& > * {
 		padding: 10px;
 		margin: 10px;
@@ -123,13 +135,88 @@ nav {
 	}
 }
 
-#viewView {
-	display: none;
+#viewRecordsContainer {
+
+	div, section {
+		border: 1px solid;
+	}
+
+	.containerSeparator {
+		padding: 15px;
+	}
+
+	#queryingContainer {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+
+		#searchBar {
+			#filterToggle {
+				width: 2rem;
+				height: 2rem;
+			}
+	
+			#searchBarInput {
+				width: auto;
+			}
+		}
+	}
+	// #filterTriangle {
+	// 	$size: 10px;
+
+	// 	height: 0;
+	// 	width: 0;
+	// 	border-left: $size solid black;
+	// 	border-top: $size solid transparent;
+	// 	border-bottom: $size solid transparent;
+	// }
 }
 
-#allrecords {
+#recordTable {
+	width: 100%;
+	colgroup {
+		#colTitle {
+			width: 35%;
+		}
+
+		#colArtist {
+			width: 20%;
+		}
+
+		#colYear {
+			width: 15%;
+		}
+
+		.tableColCheck {
+			width: 10%;
+		}
+	}
+
+	.tableCheckbox {
+		pointer-events: none;
+	}
+}
+
+#queryFields * {
+	border: none;
+}
+
+#queryFields {
 	display: flex;
 	flex-direction: column;
-	justify-content: space-evenly;
-	font-size: 2rem;
+
+	#queryTickFields {
+		display: flex;
+		flex-direction: row;
+	}
+
+	#querySearchFields {
+		display: flex;
+		flex-direction: row;
+	}
+
+	#querySortFields {
+		display: flex;
+		flex-direction: column;
+	}
 }

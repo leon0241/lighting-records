@@ -8,6 +8,7 @@ let artistHandler = document.getElementsByClassName("artistHandler");
 let addWordsContainer = document.getElementById("addView");
 let viewWordsContainer = document.getElementById("viewView");
 let tempdeposit = document.getElementById("allrecords")
+let tableBody = document.getElementById("tableBody")
 
 let db = firebase.firestore();
 let artistDB = db.collection("artists");
@@ -17,39 +18,71 @@ let index = 0;
 let artistFound = false;
 let artistID = "";
 
+
+
 // querySnapshot.forEach((doc) => {
 // 	console.log(doc.id, " => ", doc.data());
 // })
-let unsubscribe
+// let unsubscribe
 
 recordDB.onSnapshot((doc) => {
-  tempdeposit.innerHTML = ""
-  console.log(doc)
-  console.log(doc.docs)
-  console.log(doc.size)
-  console.log(doc.docs[(doc.size - 1)])
-  console.log(doc.docs[doc.size - 1].data())
+  tableBody.innerHTML = ""
+  let collection = doc.docs
 
-  let item = doc.docs[doc.size - 1]
-  let data = doc.docs[doc.size - 1].data()
-  let newItem = data
-
-  doc.docs.forEach(docc => {
-    let newItem = docc.data()
-    newItem.id = docc.id
-    console.log(newItem)
+  collection.forEach((entry) => {
+    let newItem = entry.data()
+    newItem.id = entry.id
 
     if (newItem.artist) {
-      newItem.artist.get().then((duck) => {
-        newItem.artistData = duck.data()
-        appendRecordDOM(newItem)
-      })
-        .catch(err => { console.error(err) });
+      newItem.artist.get()
+        .then((artistDoc) => {
+          newItem.artistData = artistDoc.data()
+          createTableElement(newItem)
+        })
+        .catch(err => {console.error(err)})
     } else {
-      appendRecordDOM(newItem)
+      createTableElement(newItem)
     }
-  })  
+  })
 })
+
+function createTableElement(data) {
+  let values = [
+    data.name,
+    data.artistData.name,
+    data.year,
+  ]
+
+  let checkValues = [
+    data.original,
+    data.damaged,
+    data.duplicate
+  ]
+
+  let row = tableBody.insertRow(-1)
+
+  console.log(checkValues)
+
+  values.forEach((element, index) => {
+    let newCell = row.insertCell(index)
+    let cellText = document.createTextNode(element)
+    newCell.appendChild(cellText)
+  })
+
+  checkValues.forEach((element, index) => {
+    let newCell = row.insertCell(index + values.length)
+    newCell.classList.add("tableCheckbox")
+    let checkbox = document.createElement("input")
+    checkbox.setAttribute("type", "checkbox")
+
+    if (element === true) {
+      checkbox.checked = true
+    } else {
+      checkbox.checked = false
+    }
+    newCell.appendChild(checkbox)
+  })
+}
 
 // window.onload = (e) => {
 //   recordDB.get().then((querySnapshot) => {
