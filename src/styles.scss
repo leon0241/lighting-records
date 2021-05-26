@@ -58,11 +58,11 @@ main {
 		height: auto;
 		max-height: 450px;
 		padding: 25px;
-	
+
 		.formSeparators {
 			padding: 15px;
 		}
-	
+
 		#addArtist {
 			flex: 0 1 0;
 			display: flex;
@@ -80,7 +80,7 @@ main {
 }
 
 // temp
-#recordForm div, #recordForm section { 
+#recordForm div, #recordForm section {
 	border: 1px solid;
 }
 
@@ -124,6 +124,10 @@ main {
 			border: 0;
 			margin: 0 5px;
 		}
+
+		.xButton {
+			margin-left: auto;
+		}
 	}
 
 	#submitGroup {
@@ -155,7 +159,7 @@ main {
 				width: 2rem;
 				height: 2rem;
 			}
-	
+
 			#searchBarInput {
 				width: auto;
 			}

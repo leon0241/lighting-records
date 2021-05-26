@@ -17,7 +17,7 @@
 		<script defer src="/__/firebase/8.6.2/firebase-analytics.js"></script>
 		<script defer src="/__/firebase/8.6.2/firebase-remote-config.js"></script>
 		<script defer src="/__/firebase/8.6.2/firebase-performance.js"></script>
-		<!-- 
+		<!--
 			initialize the SDK after all desired features are loaded, set useEmulator to false
 			to avoid connecting the SDK to running emulators.
 		-->
@@ -66,6 +66,10 @@
 								<div>
 									<label for="songYear0" class="recordLabel">Record Year</label>
 									<input type="text" name="songYear0" id="songYear0" class="recordInput">
+								</div>
+
+								<div class="xButton" onclick="clearLastChild()">
+									<span>X</span>
 								</div>
 							</div>
 
@@ -158,19 +162,19 @@
 								<div class="querySortContainer">
 									<input type="checkbox" name="titleColumn" id="titleColumn" class="queryColumns">
 									<label for="titleColumn">Title</label>
-									
+
 									<input type="checkbox" name="artistColumn" id="artistColumn" class="queryColumns">
 									<label for="artistColumn">Artist</label>
-									
+
 									<input type="checkbox" name="yearColumn" id="yearColumn" class="queryColumns">
 									<label for="yearColumn">Year</label>
-									
+
 									<input type="checkbox" name="artColumn" id="artColumn" class="queryColumns">
 									<label for="artColumn">Original cover</label>
-									
+
 									<input type="checkbox" name="dupeColumn" id="dupeColumn" class="queryColumns">
 									<label for="dupeColumn">Duplicate</label>
-									
+
 									<input type="checkbox" name="dmgColumn" id="dmgColumn" class="queryColumns">
 									<label for="dmgColumn">Damaged</label>
 								</div>

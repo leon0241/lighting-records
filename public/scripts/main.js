@@ -7,8 +7,9 @@ let artistHandler = document.getElementsByClassName("artistHandler");
 
 let addWordsContainer = document.getElementById("addView");
 let viewWordsContainer = document.getElementById("viewView");
-let tempdeposit = document.getElementById("allrecords")
+let wordSectionContainer = document.getElementById("addRecords")
 let tableBody = document.getElementById("tableBody")
+let recordForm = document.getElementById("recordForm")
 
 let db = firebase.firestore();
 let artistDB = db.collection("artists");
@@ -24,6 +25,11 @@ let artistID = "";
 // 	console.log(doc.id, " => ", doc.data());
 // })
 // let unsubscribe
+
+function clearLastChild() {
+  let elem = wordSectionContainer.lastChild
+  elem.innerHTML = ""
+}
 
 recordDB.onSnapshot((doc) => {
   tableBody.innerHTML = ""
@@ -83,27 +89,6 @@ function createTableElement(data) {
     newCell.appendChild(checkbox)
   })
 }
-
-// window.onload = (e) => {
-//   recordDB.get().then((querySnapshot) => {
-//     querySnapshot.forEach((doc) => {
-//       // console.log(`${doc.id} => ${doc.data()}`);
-//       // appendRecordDOM(doc.data())
-
-//       let newItem = doc.data()
-//       newItem.id = doc.id
-//       if (newItem.artist) {
-//         newItem.artist.get().then((duck) => {
-//           newItem.artistData = duck.data()
-//           appendRecordDOM(newItem)
-//         })
-//         .catch(err => { console.error(err) });
-//       } else {
-//         appendRecordDOM(newItem)
-//       }
-//     });
-//   });
-// };
 
 function appendRecordDOM(data) {
   let appenderSpan = document.createElement("span");
@@ -265,6 +250,8 @@ function submitForm(that) {
 
   // adds 2 arrays to firstore
   addToFirestore(artistValues, recordValues);
+
+  recordForm.reset()
 }
 
 // Adds records and artists to firestore collections

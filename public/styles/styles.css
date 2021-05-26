@@ -104,6 +104,9 @@ main .mainContainer {
   border: 0;
   margin: 0 5px;
 }
+#addRecords .recordGroup > div .xButton {
+  margin-left: auto;
+}
 #addRecords #submitGroup {
   display: flex;
   flex-direction: row;
