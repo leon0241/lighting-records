@@ -39,7 +39,7 @@
 					<section class="formSeparators" id="addArtist">
 						<div>
 							<label for="artistName">Artist</label>
-							<input type="text" name="artistName" id="artistName"/>
+							<input type="text" name="artistName" id="artistName" required/>
 						</div>
 
 						<div>
@@ -60,15 +60,17 @@
 							<div class="inputRow">
 								<div>
 									<label for="songTitle0" class="recordLabel">Record Title</label>
-									<input type="text" name="songTitle0" id="songTitle0" class="recordInput">
+									<input type="text" name="songTitle0" id="songTitle0" class="recordInput" required>
 								</div>
 
-								<div>
-									<label for="songYear0" class="recordLabel">Record Year</label>
-									<input type="text" name="songYear0" id="songYear0" class="recordInput">
+								<div class="yearDiv">
+									<label for="songYear0" class="recordLabel">Record Year </label>
+									<div>
+										<span>19</span><input type="number" class="yearInput" name="songYear0" id="songYear0" class="recordInput" max="99" required>
+									</div>
 								</div>
 
-								<div class="xButton" onclick="clearLastChild()">
+								<div class="xButton" onclick="clearChild(this)">
 									<span>X</span>
 								</div>
 							</div>
@@ -196,8 +198,8 @@
 								<th class="tableHeader">Artist</th>
 								<th class="tableHeader">Year</th>
 								<th class="tableHeader">Art</th>
-								<th class="tableHeader">Dupe</th>
 								<th class="tableHeader">Dmg</th>
+								<th class="tableHeader">Dupe</th>
 							</tr>
 						</thead>
 						<tbody id="tableBody">

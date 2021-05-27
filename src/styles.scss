@@ -1,3 +1,13 @@
+@mixin initflex($dir) {
+	display: flex;
+	
+	@if $dir == "row" {
+		flex-direction: row;
+	} @else {
+		flex-direction: column;
+	}
+}
+
 body {
 	padding: 0;
 	margin: 0;
@@ -8,8 +18,7 @@ html, body{
 }
 
 body {
-	display: flex;
-	flex-direction: column;
+	@include initflex("col")
 }
 
 main {
@@ -17,8 +26,7 @@ main {
 }
 
 nav {
-	display: flex;
-	flex-direction: row;
+	@include initflex("row");
 	background-color: lightgray;
 	padding: 15px;
 
@@ -33,8 +41,7 @@ nav {
 
 main {
 	#addView {
-		display: flex;
-		flex-direction: column;
+		@include initflex("col");
 		align-items: center;
 		height: 100%;
 	}
@@ -53,8 +60,7 @@ main {
 
 #addView{
 	#recordForm {
-		display: flex;
-		flex-direction: column;
+		@include initflex("col");
 		height: auto;
 		max-height: 450px;
 		padding: 25px;
@@ -116,13 +122,35 @@ main {
 	}
 
 	.recordGroup > div {
-		display: flex;
-		flex-direction: row;
+		@include initflex("row");
 		padding: 5px;
 
 		& > div {
 			border: 0;
 			margin: 0 5px;
+		}
+
+		.yearDiv {
+			@include initflex("row");
+
+			& > div {
+				margin: 0 0.5rem;
+
+				& > span {
+					padding: 0 0.25rem 0 0;
+					height: 100%;
+					display: inline-block;
+					background-color: lightgray;
+				}
+			}
+
+			.yearInput {
+				width: 3rem;
+				border: none;
+				height: 100%;
+				margin: 0;
+				padding: 0;
+			}
 		}
 
 		.xButton {
@@ -131,8 +159,7 @@ main {
 	}
 
 	#submitGroup {
-		display: flex;
-		flex-direction: row;
+		@include initflex("row");
 		justify-content: flex-end;
 		margin-top: auto;
 		order: 99;
@@ -150,8 +177,7 @@ main {
 	}
 
 	#queryingContainer {
-		display: flex;
-		flex-direction: column;
+		@include initflex("col");
 		justify-content: center;
 
 		#searchBar {
@@ -206,21 +232,17 @@ main {
 }
 
 #queryFields {
-	display: flex;
-	flex-direction: column;
+	@include initflex("col");
 
 	#queryTickFields {
-		display: flex;
-		flex-direction: row;
+		@include initflex("row");
 	}
 
 	#querySearchFields {
-		display: flex;
-		flex-direction: row;
+		@include initflex("row");
 	}
 
 	#querySortFields {
-		display: flex;
-		flex-direction: column;
+		@include initflex("col");
 	}
 }

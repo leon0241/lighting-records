@@ -104,6 +104,26 @@ main .mainContainer {
   border: 0;
   margin: 0 5px;
 }
+#addRecords .recordGroup > div .yearDiv {
+  display: flex;
+  flex-direction: row;
+}
+#addRecords .recordGroup > div .yearDiv > div {
+  margin: 0 0.5rem;
+}
+#addRecords .recordGroup > div .yearDiv > div > span {
+  padding: 0 0.25rem 0 0;
+  height: 100%;
+  display: inline-block;
+  background-color: lightgray;
+}
+#addRecords .recordGroup > div .yearDiv .yearInput {
+  width: 3rem;
+  border: none;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 #addRecords .recordGroup > div .xButton {
   margin-left: auto;
 }
