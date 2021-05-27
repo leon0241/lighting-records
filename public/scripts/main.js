@@ -15,7 +15,7 @@ let db = firebase.firestore();
 let artistDB = db.collection("artists");
 let recordDB = db.collection("records");
 
-let index = 0;
+let rowIndex = 0;
 let artistFound = false;
 let artistID = "";
 
@@ -56,10 +56,8 @@ function clearChild(that) {
   wordSectionContainer.removeChild(xParent)
 }
 
-recordDB.orderBy("")
-
 // On snapshot aka database change
-recordDB.orderBy("artist").onSnapshot((doc) => {
+recordDB.orderBy("name").onSnapshot((doc) => {
   // TODO: should be a better way to do this
   tableBody.innerHTML = ""
 
@@ -210,7 +208,7 @@ addButton.addEventListener("click", addNewRow);
 
 // Adds a new row
 function addNewRow() {
-  index += 1;
+  rowIndex += 1;
   // Copy nodes
   let newGroup = group.cloneNode(true);
   // Array from input row, and check row
@@ -234,11 +232,13 @@ function addNewRow() {
           // get ID
           let preVal = item.id;
           // Remove number from end and add index
-          let newVal = `${preVal.slice(0, -1)}${index}`;
+          let newVal = `${preVal.slice(0, -1)}${rowIndex}`;
 
           // Set ID and name attribute to newID
           item.id = newVal;
           item.setAttribute("name", newVal);
+
+          console.log(item.getAttribute("type"))
 
           if (item.getAttribute("type") === "text") {
             item.value = "";
@@ -251,15 +251,34 @@ function addNewRow() {
           // Get for attribute
           let preVal = item.getAttribute("for");
           // Set new attribute
-          let newVal = `${preVal.slice(0, -1)}${index}`;
+          let newVal = `${preVal.slice(0, -1)}${rowIndex}`;
           item.setAttribute("for", newVal);
+        } else if (item.nodeName === "DIV") {
+          //TODO: find a better way to do this shit bro
+          
+          console.log(item.children[1])
+          let inputItem = item.children[1]
+          
+          // get ID
+          let preVal = inputItem.id;
+          // Remove number from end and add index
+          let newVal = `${preVal.slice(0, -1)}${rowIndex}`;
+
+          // Set ID and name attribute to newID
+          inputItem.id = newVal;
+          inputItem.setAttribute("name", newVal);
+
+          console.log(inputItem.getAttribute("type"))
+
+          inputItem.value = ""
+
         }
       });
     });
   });
 
   // Set the id of the group
-  newGroup.id = `recordGroup${index}`;
+  newGroup.id = `recordGroup${rowIndex}`;
 
   // Append the child to container
   container.appendChild(newGroup);
@@ -268,13 +287,14 @@ function addNewRow() {
   container.scrollTop = container.scrollHeight;
 
   // Set input to the textbox
-  let currentInput = document.getElementById(`songTitle${index}`);
+  let currentInput = document.getElementById(`songTitle${rowIndex}`);
   currentInput.focus();
 }
 
 // Submits the form
 function submitForm(that) {
   let valueArr = that.elements;
+  rowIndex = 0
 
   // Fill out artist object
   let artistValues = {
@@ -302,6 +322,13 @@ function submitForm(that) {
 
   // adds 2 arrays to firstore
   addToFirestore(artistValues, recordValues);
+
+  let arr = wordSectionContainer.children
+  Array.from(arr).forEach((e) => {
+    if (e.id != "recordGroup0" && e.id != "submitGroup") {
+      wordSectionContainer.removeChild(e)
+    }
+  })
 
   recordForm.reset()
 }
