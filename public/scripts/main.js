@@ -26,61 +26,106 @@ let artistID = "";
 // })
 // let unsubscribe
 
-function clearLastChild() {
-  let elem = wordSectionContainer.lastChild
-  elem.innerHTML = ""
+let yearGroup = document.getElementsByClassName("yearInput")
+
+// for each year group input
+Array.from(yearGroup).forEach((element) => {
+  element.addEventListener("keyup", (e) => {
+    let content = element.value
+
+    // if value is longer than 2
+    if (content.length > 2) {
+      // slice off the last letter
+      element.value = element.value.slice(0, -1)
+    }
+  })
+})
+
+// clear a record row thing
+function clearChild(that) {
+  console.log(that)
+  let xParent = that
+
+  // while the parent is not higher than the container
+  while (xParent.parentNode != wordSectionContainer) {
+    // traverse 1 layer up
+    xParent = xParent.parentNode
+  }
+
+  // remove child
+  wordSectionContainer.removeChild(xParent)
 }
 
-recordDB.onSnapshot((doc) => {
+recordDB.orderBy("")
+
+// On snapshot aka database change
+recordDB.orderBy("artist").onSnapshot((doc) => {
+  // TODO: should be a better way to do this
   tableBody.innerHTML = ""
+
+  // document array
   let collection = doc.docs
 
+  // for each entry in array
   collection.forEach((entry) => {
+    // set data
     let newItem = entry.data()
     newItem.id = entry.id
 
+    // if there's artist field
     if (newItem.artist) {
+      // get data of artist
       newItem.artist.get()
         .then((artistDoc) => {
+          // store artist data into a new value
           newItem.artistData = artistDoc.data()
+
+          //create table element with data
           createTableElement(newItem)
         })
         .catch(err => {console.error(err)})
     } else {
+      // else just create table element 
       createTableElement(newItem)
     }
   })
 })
 
+// creates table elements
 function createTableElement(data) {
+  // text values
   let values = [
     data.name,
     data.artistData.name,
     data.year,
   ]
 
+  // bool checks
   let checkValues = [
     data.original,
     data.damaged,
     data.duplicate
   ]
 
+  // new row at end
   let row = tableBody.insertRow(-1)
 
-  console.log(checkValues)
-
+  // for each value insert row text
   values.forEach((element, index) => {
     let newCell = row.insertCell(index)
     let cellText = document.createTextNode(element)
     newCell.appendChild(cellText)
   })
 
+  // for each value insert row checkbox
   checkValues.forEach((element, index) => {
+    // offset row text
     let newCell = row.insertCell(index + values.length)
     newCell.classList.add("tableCheckbox")
     let checkbox = document.createElement("input")
     checkbox.setAttribute("type", "checkbox")
 
+    // set checkbox to true or false
     if (element === true) {
       checkbox.checked = true
     } else {
@@ -90,18 +135,13 @@ function createTableElement(data) {
   })
 }
 
-function appendRecordDOM(data) {
-  let appenderSpan = document.createElement("span");
-  appenderSpan.classList.add("recordValue");
-  appenderSpan.textContent = `${data.name} - ${data.artistData.name} - ${data.damaged} - ${data.duplicate} - ${data.original} - ${data.year}`;
-  tempdeposit.appendChild(appenderSpan);
-}
-
+// view records button view
 document.getElementById("viewRecordsBtn").addEventListener("click", (e) => {
   addWordsContainer.style.display = "none";
   viewWordsContainer.style.display = "flex";
 });
 
+// add records button view
 document.getElementById("addRecordsBtn").addEventListener("click", (e) => {
   addWordsContainer.style.display = "flex";
   viewWordsContainer.style.display = "none";
@@ -139,6 +179,7 @@ artistName.addEventListener("change", (e) => {
     });
 });
 
+// Styling dom showing if there's an artist or not
 function noArtist(bool) {
   if (bool) {
     artistFound = false;
@@ -157,7 +198,18 @@ function noArtist(bool) {
   }
 }
 
-addButton.addEventListener("click", (e) => {
+// Shortcut for ctrl + insert
+document.addEventListener("keydown", (e) => {
+  if (e.ctrlKey && e.key == "Insert") {
+    addNewRow(e)
+  }
+})
+
+// Event listener for add button onclick
+addButton.addEventListener("click", addNewRow);
+
+// Adds a new row
+function addNewRow() {
   index += 1;
   // Copy nodes
   let newGroup = group.cloneNode(true);
@@ -218,8 +270,9 @@ addButton.addEventListener("click", (e) => {
   // Set input to the textbox
   let currentInput = document.getElementById(`songTitle${index}`);
   currentInput.focus();
-});
+}
 
+// Submits the form
 function submitForm(that) {
   let valueArr = that.elements;
 
@@ -237,7 +290,7 @@ function submitForm(that) {
     // Fill out record object
     let recordValue = {
       recordName: valueArr[`songTitle${i}`].value,
-      recordYear: valueArr[`songYear${i}`].value,
+      recordYear: `19${valueArr[`songYear${i}`].value}`,
       recordArt: valueArr[`coverArt${i}`].checked,
       recordDmg: valueArr[`coverDmg${i}`].checked,
       recordDupe: valueArr[`duplicate${i}`].checked,
@@ -246,7 +299,6 @@ function submitForm(that) {
     // Append to array of objects
     recordValues.push(recordValue);
   }
-  console.log(recordValues);
 
   // adds 2 arrays to firstore
   addToFirestore(artistValues, recordValues);
