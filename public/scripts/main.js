@@ -7,7 +7,11 @@
 let addButton = document.getElementById("addAnotherRecord");
 let group = document.getElementById("recordGroup0");
 let container = document.getElementById("addRecords");
-let artistBox = document.getElementById("artistName");
+
+let artistName = document.getElementById("artistName");
+
+let queryTitle = document.getElementById("queryTitle")
+let queryArtist = document.getElementById("queryArtist")
 
 let artistHandler = document.getElementsByClassName("artistHandler");
 
@@ -204,7 +208,7 @@ function addNewRow() {
 // On artist name box change
 artistName.addEventListener("change", (e) => {
   // Set compare term
-  let term = artistBox.value;
+  let term = artistName.value;
 
   // looks in artistDB where name == term
   artistDB
@@ -277,6 +281,8 @@ function submitForm(that) {
   addToFirestore(artistValues, recordValues);
 
   resetForm()
+
+  artistName.focus()
 }
 
 // Adds records and artists to firestore collections
@@ -332,7 +338,7 @@ function addRecords(records, artistRef) {
 \___________________________*/
 
 // On snapshot aka database change
-recordDB.orderBy("name").onSnapshot((doc) => {
+recordDB.orderBy("name").onSnapshot(doc => {
   // TODO: should be a better way to do this
   tableBody.innerHTML = ""
 
@@ -345,7 +351,7 @@ recordDB.orderBy("name").onSnapshot((doc) => {
     let newItem = entry.data()
     newItem.id = entry.id
 
-    // if there's artist field
+    // if there's artist field 
     if (newItem.artist) {
       // get data of artist
       newItem.artist.get()
