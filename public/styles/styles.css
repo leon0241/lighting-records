@@ -146,9 +146,15 @@ main .mainContainer {
   flex-direction: column;
   justify-content: center;
 }
+#viewRecordsContainer #queryingContainer #searchBar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0.5rem;
+}
 #viewRecordsContainer #queryingContainer #searchBar #filterToggle {
-  width: 2rem;
-  height: 2rem;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 #viewRecordsContainer #queryingContainer #searchBar #searchBarInput {
   width: auto;
@@ -173,12 +179,8 @@ main .mainContainer {
   pointer-events: none;
 }
 
-#queryFields * {
-  border: none;
-}
-
 #queryFields {
-  display: flex;
+  display: none;
   flex-direction: column;
 }
 #queryFields #queryTickFields {

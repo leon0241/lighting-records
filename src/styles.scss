@@ -181,9 +181,13 @@ main {
 		justify-content: center;
 
 		#searchBar {
+			@include initflex("row");
+			align-items: center;
+			padding: 0.5rem;
+
 			#filterToggle {
-				width: 2rem;
-				height: 2rem;
+				width: 1.5rem;
+				height: 1.5rem;
 			}
 
 			#searchBarInput {
@@ -224,15 +228,13 @@ main {
 
 	.tableCheckbox {
 		pointer-events: none;
+
 	}
 }
 
-#queryFields * {
-	border: none;
-}
-
 #queryFields {
-	@include initflex("col");
+	display: none;
+	flex-direction: column;
 
 	#queryTickFields {
 		@include initflex("row");
