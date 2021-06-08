@@ -61,6 +61,25 @@ document.getElementById("filterToggle").addEventListener("click", (e) => {
   }
 });
 
+// Styling dom showing if there's an artist or not
+function noArtist(bool) {
+  if (bool) {
+    artistFound = false;
+
+    artistHandler[0].style.display = "inline";
+    artistHandler[1].style.display = "none";
+    document.getElementById("artistBand").disabled = false;
+    document.getElementById("forArtistBand").classList.remove("disabled");
+  } else {
+    artistFound = true;
+
+    artistHandler[1].style.display = "inline";
+    artistHandler[0].style.display = "none";
+    document.getElementById("artistBand").disabled = true;
+    document.getElementById("forArtistBand").classList.add("disabled");
+  }
+}
+
 // Adds a new row
 function addNewRow() {
   rowIndex += 1;
@@ -171,24 +190,24 @@ viewProfileButton.addEventListener("click", (e) => {
 |                           |
 \__________________________*/
 
-// loginButton.addEventListener("click", (e) => {
-//   auth.signInWithPopup(provider);
-// });
+loginButton.addEventListener("click", (e) => {
+  auth.signInWithPopup(provider);
+});
 
-// logoutButton.addEventListener("click", (e) => {
-//   auth.signOut();
-// });
+logoutButton.addEventListener("click", (e) => {
+  auth.signOut();
+});
 
-// auth.onAuthStateChanged((user) => {
-//   if (user) {
-//     logoutButton.style.display = "inline";
-//     loginButton.style.display = "none";
-//     viewProfileButton.classList.remove("hideProfileButton");
-//     userProfileTitle.textContent = `Profile - ${user.displayName}`;
-//   } else {
-//     loginButton.style.display = "inline";
-//     logoutButton.style.display = "none";
-//     viewProfileButton.classList.add("hideProfileButton");
-//     userProfileTitle.textContent = ``;
-//   }
-// });
+auth.onAuthStateChanged((user) => {
+  if (user) {
+    logoutButton.style.display = "inline";
+    loginButton.style.display = "none";
+    viewProfileButton.classList.remove("hideProfileButton");
+    userProfileTitle.textContent = `Profile - ${user.displayName}`;
+  } else {
+    loginButton.style.display = "inline";
+    logoutButton.style.display = "none";
+    viewProfileButton.classList.add("hideProfileButton");
+    userProfileTitle.textContent = ``;
+  }
+});

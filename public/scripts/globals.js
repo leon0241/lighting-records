@@ -48,11 +48,11 @@ const queryArtist = document.getElementById("queryArtist");
 const userProfileTitle = document.getElementById("userProfileTitle");
 
 //Firebase Firestore
-// let db = firebase.firestore();
-// let artistDB = db.collection("artists");
-// let recordDB = db.collection("records");
-// let newArtistDB = db.collection("artistDB");
+let db = firebase.firestore();
+let artistDB = db.collection("artists");
+let recordDB = db.collection("records");
+let newArtistDB = db.collection("artistDB");
 
 // Firebase Authentication
-// const auth = firebase.auth();
-// const provider = new firebase.auth.GoogleAuthProvider();
+const auth = firebase.auth();
+const provider = new firebase.auth.GoogleAuthProvider();

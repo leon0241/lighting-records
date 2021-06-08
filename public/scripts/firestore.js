@@ -1,30 +1,12 @@
 let artistFound = false;
 let artistID = "";
+let database = db.collection("artistsNew");
 
 /*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
 |                            |
 |  General DOM Manipulation  |
 |                            |
 \___________________________*/
-
-// Styling dom showing if there's an artist or not
-function noArtist(bool) {
-  if (bool) {
-    artistFound = false;
-
-    artistHandler[0].style.display = "inline";
-    artistHandler[1].style.display = "none";
-    document.getElementById("artistBand").disabled = false;
-    document.getElementById("forArtistBand").classList.remove("disabled");
-  } else {
-    artistFound = true;
-
-    artistHandler[1].style.display = "inline";
-    artistHandler[0].style.display = "none";
-    document.getElementById("artistBand").disabled = true;
-    document.getElementById("forArtistBand").classList.add("disabled");
-  }
-}
 
 /*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
 |                             |
@@ -158,14 +140,99 @@ function addRecords(records, artistRef) {
   });
 }
 
+// db.collection("artistsNew").get().then((querySnapshot) => {
+//   querySnapshot.forEach((doc) => {
+//     console.log(doc)
+//     doc.ref.collection("subcol").add({
+//       password: "a",
+//       name: "b",
+//     })
+//   })
+// })
+
+// let artistList = []
+
+// recordDB.get().then((querySnapshot) => {
+//   querySnapshot.forEach((doc) => {
+
+//     let data = doc.data()
+
+//     let recordValues = {
+//       checks: {
+//         damaged: data.damaged,
+//         duplicate: data.duplicate,
+//         original: data.original
+//       },
+//       title: data.name.toLowerCase(),
+//       year: data.year
+//     }
+
+//     data.artist.get().then((artistDoc) => {
+//       data.artistData = artistDoc.data()
+//     }).then((e) => {
+
+//       let artistValues = {
+//         band: data.artistData.band,
+//         name: data.artistData.name.toLowerCase(),
+//       }
+
+//       console.log(artistValues.name)
+      
+//       if (artistList.includes(artistValues.name)) {
+//         newArtistDB
+//         .where("name", "==", artistValues.name)
+//         .get()
+//         .then((querySnapshot) => {
+//           let artist = querySnapshot.docs[0]
+//           let recordsColl = artist.ref.collection("recordDB")
+//           recordsColl.add(recordValues)
+//         })
+//       } else {
+//         artistList.push(artistValues.name)
+
+//         newArtistDB
+//         .add(artistValues)
+//         .then((docref) => {
+//           docref.collection("recordDB").add(recordValues)
+//         })
+//         .catch(error => console.log(error))
+//       }
+
+//       // newArtistDB
+//       // .where("name", "==", artistValues.name)
+//       // .get()
+//       // .then((querySnapshot) => {
+//       //   console.log(querySnapshot)
+
+//       //   if (querySnapshot.empty) {
+//       //     newArtistDB
+//       //     .add(artistValues)
+//       //     .then((docref) => {
+//       //       docref.collection("recordDB").add(recordValues)
+//       //     })
+//       //     .catch(error => console.log(error))
+
+//       //   } else {
+//       //     let artist = querySnapshot.docs[0]
+//       //     let recordsColl = artist.ref.collection("recordDB")
+//       //     recordsColl.add(recordValues)
+//       //   }
+//       // })
+//       // .catch(error => console.log(error))
+
+//       console.log(recordValues)
+//     })
+//     .catch(error => console.log(error))
+//   })
+// })
+
 /*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
 |                            |
 |  Read firestore functions  |
 |                            |
 \___________________________*/
 
-let database = db.collection("artistsNew");
-
+// orderby name > title
 newArtistDB
   .orderBy("name")
   .get()
@@ -190,6 +257,7 @@ newArtistDB
     });
   });
 
+// add row dom
 function addTableRow(data) {
   console.log(data);
   console.log(data.title, data.artistRef);
@@ -220,13 +288,18 @@ function addTableRow(data) {
   });
 }
 
+
+
+
+
+//OLD CODE
 // // On snapshot aka database change
-// recordDB.orderBy("name").onSnapshot(doc => {
+// recordDB.orderBy("name").get().then(querySnapshot => {
 //   // TODO: should be a better way to do this
 //   tableBody.innerHTML = ""
 
 //   // document array
-//   let collection = doc.docs
+//   let collection = querySnapshot
 
 //   // for each entry in array
 //   collection.forEach((entry) => {
