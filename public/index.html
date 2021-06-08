@@ -30,7 +30,7 @@
     <!-- <script type="text/javascript" src="scripts/main.js" defer></script> -->
 
     <script src="scripts/globals.js" defer></script>
-    <script src="scripts/firestore.js" defer></script>
+    <!-- <script src="scripts/firestore.js" defer></script> -->
     <script src="scripts/main.js" defer></script>
   </head>
   <body>
@@ -118,7 +118,7 @@
                     >Record Year
                   </label>
                   <div>
-                    <span id="yearSide">19</span
+                    <span class="yearSide">19</span
                     ><input
                       type="number" class="yearInput"
                       name="songYear0" id="songYear0"
@@ -130,7 +130,7 @@
 
 								<!-- X button to delete entry -->
                 <div class="xButton" onclick="clearChild(this)">
-                  <span>X</span>
+                  <span>×</span>
                 </div>
               </div>
 
@@ -167,7 +167,12 @@
               </button>
 
 							<!-- Submit Button -->
-              <button type="submit" name="submit" class="submit">Submit</button>
+              <button 
+                type="submit" name="submit" 
+                class="submitButton" id="submitRecordsButton"
+              >
+                Submit
+              </button>
             </section>
           </section>
         </form>
@@ -319,7 +324,7 @@
           </section>
 
 					<!-- Table with entries -->
-          <table id="recordTable" class="containerSeparator">
+          <table id="viewRecordTable" class="containerSeparator recordTable">
 						<!-- Colgroup for css -->
             <colgroup>
               <col class="tableCol" id="colTitle" />
@@ -355,6 +360,39 @@
         <h2 id="userProfileTitle">
 					<!-- Filled in with JS with Name -->
 				</h2>
+
+        <!-- Main Container -->
+        <div class="mainContainer" id="profileContainer">
+          <h3>Claimed Records:</h3>
+          <table id="profileRecordTable" class="containerSeparator recordTable">
+						<!-- Colgroup for css -->
+            <colgroup>
+              <col class="tableCol" id="colTitle" />
+              <col class="tableCol" id="colArtist" />
+              <col class="tableCol" id="colYear" />
+              <col class="tableCol tableColCheck" id="colArt" />
+              <col class="tableCol tableColCheck" id="colDupe" />
+              <col class="tableCol tableColCheck" id="colDmg" />
+            </colgroup>
+
+						<!-- Header Row -->
+            <thead>
+              <tr>
+                <th class="tableHeader">Song</th>
+                <th class="tableHeader">Artist</th>
+                <th class="tableHeader">Year</th>
+                <th class="tableHeader">Art</th>
+                <th class="tableHeader">Dmg</th>
+                <th class="tableHeader">Dupe</th>
+              </tr>
+            </thead>
+
+						<!-- Table Body -->
+            <tbody id="tableBody">
+							<!-- Filled in with JS -->
+						</tbody>
+          </table>
+        </div>
       </section>
     </main>
   </body>

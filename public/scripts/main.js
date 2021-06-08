@@ -1,12 +1,4 @@
 let rowIndex = 0;
-const auth = firebase.auth();
-const provider = new firebase.auth.GoogleAuthProvider();
-
-/*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
-|                           |
-|  Firebase Authentication  |
-|                           |
-\__________________________*/
 
 /*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
 |                           |
@@ -165,14 +157,6 @@ profilePopup.addEventListener("mouseout", (e) => {
   dropdownContent.style.display = "none";
 });
 
-loginButton.addEventListener("click", (e) => {
-  auth.signInWithPopup(provider);
-});
-
-logoutButton.addEventListener("click", (e) => {
-  auth.signOut();
-});
-
 viewProfileButton.addEventListener("click", (e) => {
   addWordsContainer.style.display = "none";
   viewWordsContainer.style.display = "none";
@@ -181,16 +165,30 @@ viewProfileButton.addEventListener("click", (e) => {
   viewRecordsButton.classList.remove("navSelected");
 });
 
-auth.onAuthStateChanged((user) => {
-  if (user) {
-    logoutButton.style.display = "inline";
-    loginButton.style.display = "none";
-    viewProfileButton.classList.remove("hideProfileButton");
-    userProfileTitle.textContent = `Profile - ${user.displayName}`;
-  } else {
-    loginButton.style.display = "inline";
-    logoutButton.style.display = "none";
-    viewProfileButton.classList.add("hideProfileButton");
-    userProfileTitle.textContent = ``;
-  }
-});
+/*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
+|                           |
+|  Firebase Authentication  |
+|                           |
+\__________________________*/
+
+// loginButton.addEventListener("click", (e) => {
+//   auth.signInWithPopup(provider);
+// });
+
+// logoutButton.addEventListener("click", (e) => {
+//   auth.signOut();
+// });
+
+// auth.onAuthStateChanged((user) => {
+//   if (user) {
+//     logoutButton.style.display = "inline";
+//     loginButton.style.display = "none";
+//     viewProfileButton.classList.remove("hideProfileButton");
+//     userProfileTitle.textContent = `Profile - ${user.displayName}`;
+//   } else {
+//     loginButton.style.display = "inline";
+//     logoutButton.style.display = "none";
+//     viewProfileButton.classList.add("hideProfileButton");
+//     userProfileTitle.textContent = ``;
+//   }
+// });

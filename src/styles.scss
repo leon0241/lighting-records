@@ -5,13 +5,19 @@
 \__________________________*/
 
 $frogGreen: #019d3f;
+$frogDark: #008b34;
+$frogLight: #12ac48;
 $frogBg: #e5f5e8;
 $dark1: #1d1d1d;
 $dark2: #3d3d3d;
 $dark3: #5c5c5c;
 $gray1: #707070;
-$gray2: #b8b8b8;
-$light1: #f3f3f3;
+$gray2: #989898;
+$gray3: #b8b8b8;
+$light1: #dbdbdb;
+$light2: #eaeaea;
+$light3: #f3f3f3;
+$whitetone: #f9f9f9;
 $fontNoto: "Noto Sans JP", sans-serif;
 $fontRoboto: "Roboto", sans-serif;
 
@@ -53,6 +59,10 @@ nav {
     &:hover {
       background-color: $dark3;
     }
+
+    &.navSelected:hover {
+      background-color: $frogDark;
+    }
   }
 
   .navSelected {
@@ -62,12 +72,16 @@ nav {
   #navProfile {
     background-color: $frogGreen;
 
+    &:hover {
+      background-color: $frogDark;
+    }
+
     #dropdownContent {
       background-color: $gray1;
 
       li {
         &:hover {
-          background-color: $gray2;
+          background-color: $gray3;
         }
       }
     }
@@ -83,13 +97,76 @@ nav {
 #recordForm {
   background-color: white;
   border-radius: 5px;
+}
 
-  #yearSide {
-    background-color: $gray2;
+
+#addArtist {
+  .artistHandler {
+    &#noArtistFound {
+      color: red;
+    }
+
+    &#artistFound {
+      color: $frogGreen
+    }
+  }
+}
+
+#addRecords {
+  .inputRow {
+    .yearSide {
+      background-color: $gray3;
+    }
+
+    .xButton {
+      height: 1.25rem;
+      width: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+
+      &:hover {
+        background-color: red;
+        color: white;
+        transition: background-color 0.5s, color 0.5s;
+      }
+    }
+  }
+
+  #submitGroup {
+    .submitButton {
+      border: none;
+      border-radius: 5px;
+      padding: 0.75rem;
+      margin: 0 0.25rem;
+    }
+
+    #addAnotherRecord {
+      background-color: $light1;
+
+      &:hover {
+        cursor: pointer;
+        background-color: $gray3;
+      }
+    }
+
+    #submitRecordsButton {
+      background-color: $frogLight;
+
+      &:hover {
+        cursor: pointer;
+        background-color: $frogGreen;
+      }
+    }
   }
 }
 
 #viewRecordsContainer {
+  background-color: white;
+}
+
+#profileContainer {
   background-color: white;
 }
 
@@ -182,6 +259,11 @@ nav {
 
 // Main and different views
 main {
+  .mainContainer {
+    width: 70%;
+    border: 1px solid;
+  }
+
   #addView {
     @include initflex("col");
     align-items: center;
@@ -194,9 +276,10 @@ main {
     align-items: center;
   }
 
-  .mainContainer {
-    width: 70%;
-    border: 1px solid;
+  #profileView {
+    display: none;
+    flex-direction: column;
+    align-items: center;
   }
 }
 
@@ -254,14 +337,6 @@ main {
   .artistHandler {
     display: none;
     margin: 0 0 0 auto;
-  }
-
-  #noArtistFound {
-    color: red;
-  }
-
-  #artistFound {
-    color: green;
   }
 }
 
@@ -381,7 +456,7 @@ main {
 }
 
 // View Records > Table
-#recordTable {
+.recordTable {
   width: 100%;
   colgroup {
     #colTitle {
@@ -413,12 +488,4 @@ main {
 \____________________*/
 
 #profileView {
-  display: none;
-  #notLoggedIn {
-    display: flex;
-  }
-
-  #loggedIn {
-    display: none;
-  }
 }

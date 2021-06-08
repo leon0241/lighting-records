@@ -1,22 +1,19 @@
-@charset "UTF-8";
 /*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
-|                           |
-|  SASS Variables & Mixins  |
-|                           |
-\__________________________*/
+ |                           |
+ |  SASS Variables & Mixins  |
+ |                           |
+ \__________________________*/
 /*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
-|                        |
-|  Colour theme styling  |
-|                        |
-\_______________________*/
-body {
+ |                        |
+ |  Colour theme styling  |
+ |                        |
+ \_______________________*/
+ body {
   background-color: #e5f5e8;
 }
-
 * {
   font-family: "Roboto", sans-serif;
 }
-
 nav {
   background-color: #3d3d3d;
   color: white;
@@ -27,11 +24,17 @@ nav .navButton {
 nav .navButton:hover {
   background-color: #5c5c5c;
 }
+nav .navButton.navSelected:hover {
+  background-color: #008b34;
+}
 nav .navSelected {
   background-color: #019d3f;
 }
 nav #navProfile {
   background-color: #019d3f;
+}
+nav #navProfile:hover {
+  background-color: #008b34;
 }
 nav #navProfile #dropdownContent {
   background-color: #707070;
@@ -42,43 +45,77 @@ nav #navProfile #dropdownContent li:hover {
 nav #title h1 {
   font-family: "Noto Sans JP", sans-serif !important;
 }
-
 #recordForm {
   background-color: white;
   border-radius: 5px;
 }
-#recordForm #yearSide {
+#addArtist .artistHandler#noArtistFound {
+  color: red;
+}
+#addArtist .artistHandler#artistFound {
+  color: #019d3f;
+}
+#addRecords .inputRow .yearSide {
   background-color: #b8b8b8;
 }
-
+#addRecords .inputRow .xButton {
+  height: 1.25rem;
+  width: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+#addRecords .inputRow .xButton:hover {
+  background-color: red;
+  color: white;
+  transition: background-color 0.25s, color 0.25s;
+}
+#addRecords #submitGroup .submitButton {
+  border: none;
+  border-radius: 5px;
+  padding: 0.75rem;
+  margin: 0 0.25rem;
+}
+#addRecords #submitGroup #addAnotherRecord {
+  background-color: #dbdbdb;
+}
+#addRecords #submitGroup #addAnotherRecord:hover {
+  cursor: pointer;
+  background-color: #b8b8b8;
+}
+#addRecords #submitGroup #submitRecordsButton {
+  background-color: #12ac48;
+}
+#addRecords #submitGroup #submitRecordsButton:hover {
+  cursor: pointer;
+  background-color: #019d3f;
+}
 #viewRecordsContainer {
   background-color: white;
 }
-
+#profileContainer {
+  background-color: white;
+}
 /*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
-|                        |
-|  General Body Styling  |
-|                        |
-\_______________________*/
+ |                        |
+ |  General Body Styling  |
+ |                        |
+ \_______________________*/
 body {
   padding: 0;
   margin: 0;
 }
-
-html,
-body {
+html, body {
   height: 100%;
 }
-
 body {
   display: flex;
   flex-direction: column;
 }
-
 main {
   flex: 1;
 }
-
 nav {
   display: flex;
   flex-direction: row;
@@ -113,7 +150,6 @@ nav #navProfile {
   margin: 0;
   width: 3.5rem;
 }
-
 #navProfile #dropdownContent {
   margin: 3.5rem 0 0 0;
   display: none;
@@ -134,7 +170,10 @@ nav #navProfile {
   pointer-events: none;
   opacity: 50%;
 }
-
+main .mainContainer {
+  width: 70%;
+  border: 1px solid;
+}
 main #addView {
   display: flex;
   flex-direction: column;
@@ -146,16 +185,16 @@ main #viewView {
   flex-direction: column;
   align-items: center;
 }
-main .mainContainer {
-  width: 70%;
-  border: 1px solid;
+main #profileView {
+  display: none;
+  flex-direction: column;
+  align-items: center;
 }
-
 /*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
-|                    |
-|  Add Records View  |
-|                    |
-\___________________*/
+ |                    |
+ |  Add Records View  |
+ |                    |
+ \___________________*/
 #addView #recordForm {
   display: flex;
   flex-direction: column;
@@ -178,12 +217,9 @@ main .mainContainer {
   min-height: inherit;
   max-height: inherit;
 }
-
-#recordForm div,
-#recordForm section {
+#recordForm div, #recordForm section {
   border: 1px solid;
 }
-
 #addArtist > div {
   border: none;
   padding: 0 5px;
@@ -196,13 +232,6 @@ main .mainContainer {
   display: none;
   margin: 0 0 0 auto;
 }
-#addArtist #noArtistFound {
-  color: red;
-}
-#addArtist #artistFound {
-  color: green;
-}
-
 #addRecords > * {
   padding: 10px;
   margin: 10px;
@@ -245,14 +274,12 @@ main .mainContainer {
   margin-top: auto;
   order: 99;
 }
-
 /*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
-|                     |
-|  View Records View  |
-|                     |
-\____________________*/
-#viewRecordsContainer div,
-#viewRecordsContainer section {
+ |                     |
+ |  View Records View  |
+ |                     |
+ \____________________*/
+#viewRecordsContainer div, #viewRecordsContainer section {
   border: 1px solid;
 }
 #viewRecordsContainer .containerSeparator {
@@ -276,7 +303,6 @@ main .mainContainer {
 #viewRecordsContainer #queryingContainer #searchBar #searchBarInput {
   width: auto;
 }
-
 #queryFields {
   display: none;
   flex-direction: column;
@@ -293,39 +319,26 @@ main .mainContainer {
   display: flex;
   flex-direction: column;
 }
-
-#recordTable {
+.recordTable {
   width: 100%;
 }
-#recordTable colgroup #colTitle {
+.recordTable colgroup #colTitle {
   width: 35%;
 }
-#recordTable colgroup #colArtist {
+.recordTable colgroup #colArtist {
   width: 20%;
 }
-#recordTable colgroup #colYear {
+.recordTable colgroup #colYear {
   width: 15%;
 }
-#recordTable colgroup .tableColCheck {
+.recordTable colgroup .tableColCheck {
   width: 10%;
 }
-#recordTable .tableCheckbox {
+.recordTable .tableCheckbox {
   pointer-events: none;
 }
-
 /*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
-|                     |
-|  View Profile View  |
-|                     |
-\____________________*/
-#profileView {
-  display: none;
-}
-#profileView #notLoggedIn {
-  display: flex;
-}
-#profileView #loggedIn {
-  display: none;
-}
-
-/*# sourceMappingURL=styles.css.map */
+ |                     |
+ |  View Profile View  |
+ |                     |
+ \____________________*/
