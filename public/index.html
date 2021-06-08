@@ -1,217 +1,361 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>Lighting Records</title>
-		<link rel="stylesheet" href="styles/styles.css" />
-		<!-- update the version number as needed -->
-		<script defer src="/__/firebase/8.6.2/firebase-app.js"></script>
-		<!-- include only the Firebase features as you need -->
-		<script defer src="/__/firebase/8.6.2/firebase-auth.js"></script>
-		<script defer src="/__/firebase/8.6.2/firebase-database.js"></script>
-		<script defer src="/__/firebase/8.6.2/firebase-firestore.js"></script>
-		<script defer src="/__/firebase/8.6.2/firebase-functions.js"></script>
-		<script defer src="/__/firebase/8.6.2/firebase-messaging.js"></script>
-		<script defer src="/__/firebase/8.6.2/firebase-storage.js"></script>
-		<script defer src="/__/firebase/8.6.2/firebase-analytics.js"></script>
-		<script defer src="/__/firebase/8.6.2/firebase-remote-config.js"></script>
-		<script defer src="/__/firebase/8.6.2/firebase-performance.js"></script>
-		<!--
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lighting Records</title>
+    <link rel="stylesheet" href="styles/styles.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/8.6.2/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/8.6.2/firebase-auth.js"></script>
+    <script defer src="/__/firebase/8.6.2/firebase-database.js"></script>
+    <script defer src="/__/firebase/8.6.2/firebase-firestore.js"></script>
+    <script defer src="/__/firebase/8.6.2/firebase-functions.js"></script>
+    <script defer src="/__/firebase/8.6.2/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/8.6.2/firebase-storage.js"></script>
+    <script defer src="/__/firebase/8.6.2/firebase-analytics.js"></script>
+    <script defer src="/__/firebase/8.6.2/firebase-remote-config.js"></script>
+    <script defer src="/__/firebase/8.6.2/firebase-performance.js"></script>
+    <!--
 			initialize the SDK after all desired features are loaded, set useEmulator to false
 			to avoid connecting the SDK to running emulators.
 		-->
-		<script defer src="/__/firebase/init.js?useEmulator=true"></script>
-		<!-- <script type="text/javascript" src="scripts/main.js" defer></script> -->
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+    <!-- <script type="text/javascript" src="scripts/main.js" defer></script> -->
 
-		<script src="scripts/globals.js" defer></script>
-		<script src="scripts/write.js" defer></script>
-		<script src="scripts/read.js" defer></script>
-	</head>
-	<body>
-		<nav>
-			<button class="navButton" id="viewRecordsBtn">view</button>
-			<button class="navButton" id="addRecordsBtn">add</button>
-			<div id="title">
-				<h1>Lighting desk Records</h1>
-			</div>
-		</nav>
-		<main>
-			<section id="addView">
-				<h2>Add records</h2>
-				<form class="mainContainer" id="recordForm" onsubmit="submitForm(this);return false">
-					<section class="formSeparators" id="addArtist">
-						<div>
-							<label for="artistName">Artist</label>
-							<input type="text" name="artistName" id="artistName" required/>
-						</div>
+    <script src="scripts/globals.js" defer></script>
+    <script src="scripts/firestore.js" defer></script>
+    <script src="scripts/main.js" defer></script>
+  </head>
+  <body>
+		<!-- Navigation Bar -->
+    <nav>
+			<!-- Nav buttons -->
+			<div class="navButton navSelected" id="addRecordsButton">
+        <span class="navSpan">add</span>
+      </div>
 
-						<div>
-							<input type="checkbox" name="artistBand" id="artistBand">
-							<label for="artistBand" id="forArtistBand">Band</label>
-						</div>
+      <div class="navButton" id="viewRecordsButton">
+        <span class="navSpan">view</span>
+      </div>
 
-						<p id="noArtistFound" class="artistHandler">
-							A new artist will be created with this name
-						</p>
-						<p id="artistFound" class="artistHandler">
-							An artist was found with that name.
-						</p>
-					</section>
+			<!-- Nav Title -->
+      <div id="title">
+        <h1>Lighting desk Records</h1>
+      </div>
 
-					<section class="formSeparators" id="addRecords">
-						<section class="recordGroup" id="recordGroup0">
-							<div class="inputRow">
-								<div>
-									<label for="songTitle0" class="recordLabel">Record Title</label>
-									<input type="text" name="songTitle0" id="songTitle0" class="recordInput" required>
-								</div>
+			<!-- Profile popup -->
+      <div id="navProfile">
+				<!-- Popup content -->
+        <div id="dropdownContent">
+          <span id="loginButton">Log In</span>
+          <span id="logoutButton">Log Out</span>
+          <span id="viewProfileButton">View Profile</span>
+        </div>
+      </div>
+    </nav>
 
-								<div class="yearDiv">
-									<label for="songYear0" class="recordLabel">Record Year </label>
-									<div>
-										<span>19</span><input type="number" class="yearInput" name="songYear0" id="songYear0" class="recordInput" max="99" required>
-									</div>
-								</div>
+		<!-- Main Body -->
+    <main>
+			<!-- Add Records View -->
+      <section id="addView">
+        <h2>Add records</h2>
+        <form
+          class="mainContainer"
+          id="recordForm"
+          onsubmit="submitForm(this);return false"
+        >
+					<!-- Add Artist -->
+          <section class="formSeparators" id="addArtist">
+						<!-- Artist Name -->
+            <div>
+              <label for="artistName">Artist</label>
+              <input type="text" name="artistName" id="artistName" required />
+            </div>
 
-								<div class="xButton" onclick="clearChild(this)">
-									<span>X</span>
-								</div>
-							</div>
+						<!-- Artist Band Check -->
+            <div>
+              <input type="checkbox" name="artistBand" id="artistBand" />
+              <label for="artistBand" id="forArtistBand">Band</label>
+            </div>
 
-							<div class="checkRow">
-								<div>
-									<input type="checkbox" name="coverArt0" id="coverArt0"/>
-									<label for="coverArt0">Original cover</label>
-								</div>
-								<div>
-									<input type="checkbox" name="coverDmg0" id="coverDmg0" />
-									<label for="coverDmg0">Damaged Cover</label>
-								</div>
-								<div>
-									<input type="checkbox" name="duplicate0" id="duplicate0" />
-									<label for="duplicate0">Duplicate</label>
-								</div>
-							</div>
-						</section>
+						<!-- Popup text if artist is found or not -->
+            <p id="noArtistFound" class="artistHandler">
+              A new artist will be created with this name
+            </p>
+            <p id="artistFound" class="artistHandler">
+              An artist was found with that name.
+            </p>
+          </section>
 
-						<section id="submitGroup">
-							<button type="button" name="addAnotherRecord" class="submitButton" id="addAnotherRecord">
-								Add another record by same artist
-							</button>
+					<!-- Add Records -->
+          <section class="formSeparators" id="addRecords">
+						<!-- Record entry group -->
+            <section class="recordGroup" id="recordGroup0">
+							<!-- Input rows -->
+              <div class="inputRow">
+								<!-- Title of Record -->
+                <div>
+                  <label for="songTitle0" class="recordLabel"
+                    >Record Title</label
+                  >
+                  <input
+                    type="text" name="songTitle0"
+                    id="songTitle0" class="recordInput"
+                    required
+                  />
+                </div>
 
-							<button type="submit" name="submit" class="submit">
-								Submit
-							</button>
-						</section>
-					</section>
-				</form>
-			</section>
+								<!-- Year of Record -->
+                <div class="yearDiv">
+                  <label for="songYear0" class="recordLabel"
+                    >Record Year
+                  </label>
+                  <div>
+                    <span id="yearSide">19</span
+                    ><input
+                      type="number" class="yearInput"
+                      name="songYear0" id="songYear0"
+                      class="recordInput" max="99"
+                      required
+                    />
+                  </div>
+                </div>
 
-			<section id="viewView">
-				<h2>View records</h2>
-				<div class="mainContainer" id="viewRecordsContainer">
-					<section id="queryingContainer" class="containerSeparator">
-						<div id="searchBar">
-							<button id="filterToggle" type="button"></button>
-							<input type="text" id="searchBarInput">
-						</div>
-						<div id="queryFields" style="display: none">
-							<section id="queryTickFields">
-								<div class="queryTickContainer">
-									<input type="checkbox" name="queryCover" id="queryCover" class="queryTickInput">
-									<label for="queryCover">Original Cover</label>
-								</div>
+								<!-- X button to delete entry -->
+                <div class="xButton" onclick="clearChild(this)">
+                  <span>X</span>
+                </div>
+              </div>
 
-								<div class="queryTickContainer">
-									<input type="checkbox" name="queryDmg" id="queryDmg" class="queryTickInput">
-									<label for="queryDmg">Damaged Cover</label>
-								</div>
+							<!-- Checkbox rows -->
+              <div class="checkRow">
+								<!-- Original Cover Art -->
+                <div>
+                  <input type="checkbox" name="coverArt0" id="coverArt0" />
+                  <label for="coverArt0">Original cover</label>
+                </div>
 
-								<div class="queryTickContainer">
-									<input type="checkbox" name="queryDupe" id="queryDupe" class="queryTickInput">
-									<label for="queryDupe">Duplicates</label>
-								</div>
+								<!-- Damaged Cover Art -->
+                <div>
+                  <input type="checkbox" name="coverDmg0" id="coverDmg0" />
+                  <label for="coverDmg0">Damaged Cover</label>
+                </div>
 
-								<div class="queryTickContainer">
-									<input type="checkbox" name="queryBand" id="queryBand" class="queryTickInput">
-									<label for="queryBand">Band</label>
-								</div>
-							</section>
-							<section id="querySearchFields">
-								<div class="querySearchContainer">
-									<label for="queryTitle">Filter Title: </label>
-									<input type="text" name="queryTitle" id="queryTitle" class="querySearchInput">
-								</div>
+								<!-- Duplicate Records -->
+                <div>
+                  <input type="checkbox" name="duplicate0" id="duplicate0" />
+                  <label for="duplicate0">Duplicate</label>
+                </div>
+              </div>
+            </section>
 
-								<div class="querySearchContainer">
-									<label for="queryArtist">Filter Artist: </label>
-									<input type="text" name="queryArtist" id="queryArtist" class="querySearchInput">
-								</div>
+						<!-- Submit group -->
+            <section id="submitGroup">
+							<!-- Add another record button -->
+              <button
+                type="button" name="addAnotherRecord"
+                class="submitButton" id="addAnotherRecord"
+              >
+                Add another record by same artist
+              </button>
 
-								<div class="querySearchContainer">
-									<label for="queryYear">Filter Years: </label>
-									<input type="range" name="queryYear" id="queryYearMin" class="querySearchInput">
-									<!-- <input type="range" name="queryYear" id="queryYearMax" class="querySearchInput"> -->
-								</div>
+							<!-- Submit Button -->
+              <button type="submit" name="submit" class="submit">Submit</button>
+            </section>
+          </section>
+        </form>
+      </section>
 
-								<div class="querySearchContainer">
-									<label for="querySort">Sort by: </label>
-									<select name="querySort" id="querySort">
-										<option value="sortTitle">Title</option>
-										<option value="sortArtist">Artist</option>
-										<option value="sortYeaer">Year</option>
-									</select>
-								</div>
-							</section>
-							<section id="querySortFields">
-								<div class="querySortContainer">
-									<input type="checkbox" name="titleColumn" id="titleColumn" class="queryColumns">
-									<label for="titleColumn">Title</label>
+			<!-- View Records View -->
+      <section id="viewView">
+        <h2>View records</h2>
+				<!-- Main Container -->
+        <div class="mainContainer" id="viewRecordsContainer">
+					<!-- Query Container -->
+          <section id="queryingContainer" class="containerSeparator">
+						<!-- General Search bar -->
+            <div id="searchBar">
+              <button id="filterToggle" type="button"></button>
+              <input type="text" id="searchBarInput" />
+            </div>
 
-									<input type="checkbox" name="artistColumn" id="artistColumn" class="queryColumns">
-									<label for="artistColumn">Artist</label>
+						<!-- (Hidden) Additional query fields -->
+            <div id="queryFields" style="display: none">
+							<!-- Checkbox Fields -->
+              <section id="queryTickFields">
+								<!-- Original Cover -->
+                <div class="queryTickContainer">
+                  <input
+                    type="checkbox" name="queryCover"
+                    id="queryCover" class="queryTickInput"
+                  />
+                  <label for="queryCover">Original Cover</label>
+                </div>
 
-									<input type="checkbox" name="yearColumn" id="yearColumn" class="queryColumns">
-									<label for="yearColumn">Year</label>
+								<!-- Damaged Cover -->
+                <div class="queryTickContainer">
+                  <input
+                    type="checkbox" name="queryDmg"
+                    id="queryDmg" class="queryTickInput"
+                  />
+                  <label for="queryDmg">Damaged Cover</label>
+                </div>
 
-									<input type="checkbox" name="artColumn" id="artColumn" class="queryColumns">
-									<label for="artColumn">Original cover</label>
+								<!-- Duplicated Record -->
+                <div class="queryTickContainer">
+                  <input
+                    type="checkbox" name="queryDupe"
+                    id="queryDupe" class="queryTickInput"
+                  />
+                  <label for="queryDupe">Duplicates</label>
+                </div>
 
-									<input type="checkbox" name="dupeColumn" id="dupeColumn" class="queryColumns">
-									<label for="dupeColumn">Duplicate</label>
+								<!-- Band -->
+                <div class="queryTickContainer">
+                  <input
+                    type="checkbox" name="queryBand"
+                    id="queryBand" class="queryTickInput"
+                  />
+                  <label for="queryBand">Band</label>
+                </div>
+              </section>
 
-									<input type="checkbox" name="dmgColumn" id="dmgColumn" class="queryColumns">
-									<label for="dmgColumn">Damaged</label>
-								</div>
-							</section>
-						</div>
-					</section>
-					<table id="recordTable" class="containerSeparator">
-						<colgroup>
-							<col class="tableCol" id="colTitle">
-							<col class="tableCol" id="colArtist">
-							<col class="tableCol" id="colYear">
-							<col class="tableCol tableColCheck" id="colArt">
-							<col class="tableCol tableColCheck" id="colDupe">
-							<col class="tableCol tableColCheck" id="colDmg">
-						</colgroup>
-						<thead>
-							<tr>
-								<th class="tableHeader">Song</th>
-								<th class="tableHeader">Artist</th>
-								<th class="tableHeader">Year</th>
-								<th class="tableHeader">Art</th>
-								<th class="tableHeader">Dmg</th>
-								<th class="tableHeader">Dupe</th>
-							</tr>
-						</thead>
-						<tbody id="tableBody">
+							<!-- Search Fields -->
+              <section id="querySearchFields">
+								<!-- Record Title -->
+                <div class="querySearchContainer">
+                  <label for="queryTitle">Filter Title: </label>
+                  <input
+                    type="text" name="queryTitle"
+                    id="queryTitle" class="querySearchInput"
+                  />
+                </div>
 
+								<!-- Record Artist -->
+                <div class="querySearchContainer">
+                  <label for="queryArtist">Filter Artist: </label>
+                  <input
+                    type="text" name="queryArtist"
+                    id="queryArtist" class="querySearchInput"
+                  />
+                </div>
+
+								<!-- Record Year between x and y -->
+                <div class="querySearchContainer">
+                  <label for="queryYear">Filter Years: </label>
+                  <input
+                    type="range" name="queryYear"
+                    id="queryYearMin" class="querySearchInput"
+                  />
+                  <!-- <input type="range" name="queryYear" id="queryYearMax" class="querySearchInput"> -->
+                </div>
+
+								<!-- Query Sort -->
+                <div class="querySearchContainer">
+                  <label for="querySort">Sort by: </label>
+                  <select name="querySort" id="querySort">
+                    <option value="sortTitle">Title</option>
+                    <option value="sortArtist">Artist</option>
+                    <option value="sortYeaer">Year</option>
+                  </select>
+                </div>
+              </section>
+
+							<!-- Column select -->
+              <section id="querySortFields">
+								<!-- Select Title Column -->
+                <div class="querySortContainer">
+									<!-- Select Title Column -->
+                  <input
+                    type="checkbox" name="titleColumn"
+                    id="titleColumn" class="queryColumns"
+                  />
+                  <label for="titleColumn">Title</label>
+
+									<!-- Select Artist Column -->
+                  <input
+                    type="checkbox" name="artistColumn"
+                    id="artistColumn" class="queryColumns"
+                  />
+                  <label for="artistColumn">Artist</label>
+
+									<!-- Select Year Column -->
+                  <input
+                    type="checkbox" name="yearColumn"
+                    id="yearColumn" class="queryColumns"
+                  />
+                  <label for="yearColumn">Year</label>
+
+									<!-- Select Original Cover Column -->
+                  <input
+                    type="checkbox" name="artColumn"
+                    id="artColumn" class="queryColumns"
+                  />
+                  <label for="artColumn">Original cover</label>
+
+									<!-- Select Duplicate Column -->
+                  <input
+                    type="checkbox" name="dupeColumn"
+                    id="dupeColumn" class="queryColumns"
+                  />
+                  <label for="dupeColumn">Duplicate</label>
+
+									<!-- Select Damaged Column -->
+                  <input
+                    type="checkbox" name="dmgColumn"
+                    id="dmgColumn" class="queryColumns"
+                  />
+                  <label for="dmgColumn">Damaged</label>
+                </div>
+              </section>
+            </div>
+          </section>
+
+					<!-- Table with entries -->
+          <table id="recordTable" class="containerSeparator">
+						<!-- Colgroup for css -->
+            <colgroup>
+              <col class="tableCol" id="colTitle" />
+              <col class="tableCol" id="colArtist" />
+              <col class="tableCol" id="colYear" />
+              <col class="tableCol tableColCheck" id="colArt" />
+              <col class="tableCol tableColCheck" id="colDupe" />
+              <col class="tableCol tableColCheck" id="colDmg" />
+            </colgroup>
+
+						<!-- Header Row -->
+            <thead>
+              <tr>
+                <th class="tableHeader">Song</th>
+                <th class="tableHeader">Artist</th>
+                <th class="tableHeader">Year</th>
+                <th class="tableHeader">Art</th>
+                <th class="tableHeader">Dmg</th>
+                <th class="tableHeader">Dupe</th>
+              </tr>
+            </thead>
+
+						<!-- Table Body -->
+            <tbody id="tableBody">
+							<!-- Filled in with JS -->
 						</tbody>
-					</table>
-				</div>
-			</section>
-		</main>
-	</body>
+          </table>
+        </div>
+      </section>
+
+			<!-- View Profile View -->
+      <section id="profileView">
+        <h2 id="userProfileTitle">
+					<!-- Filled in with JS with Name -->
+				</h2>
+      </section>
+    </main>
+  </body>
 </html>

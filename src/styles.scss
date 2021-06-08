@@ -1,250 +1,424 @@
+/*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
+|                           |
+|  SASS Variables & Mixins  |
+|                           |
+\__________________________*/
+
+$frogGreen: #019d3f;
+$frogBg: #e5f5e8;
+$dark1: #1d1d1d;
+$dark2: #3d3d3d;
+$dark3: #5c5c5c;
+$gray1: #707070;
+$gray2: #b8b8b8;
+$light1: #f3f3f3;
+$fontNoto: "Noto Sans JP", sans-serif;
+$fontRoboto: "Roboto", sans-serif;
+
 @mixin initflex($dir) {
-	display: flex;
-	
-	@if $dir == "row" {
-		flex-direction: row;
-	} @else {
-		flex-direction: column;
-	}
+  display: flex;
+
+  @if $dir == "row" {
+    flex-direction: row;
+  } @else {
+    flex-direction: column;
+  }
 }
+
+/*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
+|                        |
+|  Colour theme styling  |
+|                        |
+\_______________________*/
+
+// button {
+// 	background-color: $frogGreen;
+// }
 
 body {
-	padding: 0;
-	margin: 0;
+  background-color: $frogBg;
 }
 
-html, body{
-	height: 100%;
-}
-
-body {
-	@include initflex("col")
-}
-
-main {
-	flex: 1;
+* {
+  font-family: $fontRoboto;
 }
 
 nav {
-	@include initflex("row");
-	background-color: lightgray;
-	padding: 15px;
+  background-color: $dark2;
+  color: white;
 
-	#title {
-		margin-left: auto;
+  .navButton {
+    background-color: $gray1;
 
-		& > h1 {
-			margin: 0;
-		}
-	}
+    &:hover {
+      background-color: $dark3;
+    }
+  }
+
+  .navSelected {
+    background-color: $frogGreen;
+  }
+
+  #navProfile {
+    background-color: $frogGreen;
+
+    #dropdownContent {
+      background-color: $gray1;
+
+      li {
+        &:hover {
+          background-color: $gray2;
+        }
+      }
+    }
+  }
+
+  #title {
+    h1 {
+      font-family: $fontNoto !important;
+    }
+  }
 }
 
-main {
-	#addView {
-		@include initflex("col");
-		align-items: center;
-		height: 100%;
-	}
+#recordForm {
+  background-color: white;
+  border-radius: 5px;
 
-	#viewView {
-		display: none;
-		flex-direction: column;
-		align-items: center;
-	}
-
-	.mainContainer {
-		width: 70%;
-		border: 1px solid;
-	}
-}
-
-#addView{
-	#recordForm {
-		@include initflex("col");
-		height: auto;
-		max-height: 450px;
-		padding: 25px;
-
-		.formSeparators {
-			padding: 15px;
-		}
-
-		#addArtist {
-			flex: 0 1 0;
-			display: flex;
-		}
-
-		#addRecords {
-			display: flex;
-			flex-direction: column;
-			overflow-y: scroll;
-			overflow-x: hidden;
-			min-height: inherit;
-			max-height: inherit;
-		}
-	}
-}
-
-// temp
-#recordForm div, #recordForm section {
-	border: 1px solid;
-}
-
-#addArtist {
-	& > div {
-		border: none;
-		padding: 0 5px;
-	}
-
-	.disabled {
-		pointer-events: none;
-		opacity: 0.5;
-	}
-
-	.artistHandler {
-		display: none;
-		margin: 0 0 0 auto;
-	}
-
-	#noArtistFound {
-		color: red;
-	}
-
-	#artistFound {
-		color: green;
-	}
-}
-
-#addRecords {
-	& > * {
-		padding: 10px;
-		margin: 10px;
-	}
-
-	.recordGroup > div {
-		@include initflex("row");
-		padding: 5px;
-
-		& > div {
-			border: 0;
-			margin: 0 5px;
-		}
-
-		.yearDiv {
-			@include initflex("row");
-
-			& > div {
-				margin: 0 0.5rem;
-
-				& > span {
-					padding: 0 0.25rem 0 0;
-					height: 100%;
-					display: inline-block;
-					background-color: lightgray;
-				}
-			}
-
-			.yearInput {
-				width: 3rem;
-				border: none;
-				height: 100%;
-				margin: 0;
-				padding: 0;
-			}
-		}
-
-		.xButton {
-			margin-left: auto;
-		}
-	}
-
-	#submitGroup {
-		@include initflex("row");
-		justify-content: flex-end;
-		margin-top: auto;
-		order: 99;
-	}
+  #yearSide {
+    background-color: $gray2;
+  }
 }
 
 #viewRecordsContainer {
-
-	div, section {
-		border: 1px solid;
-	}
-
-	.containerSeparator {
-		padding: 15px;
-	}
-
-	#queryingContainer {
-		@include initflex("col");
-		justify-content: center;
-
-		#searchBar {
-			@include initflex("row");
-			align-items: center;
-			padding: 0.5rem;
-
-			#filterToggle {
-				width: 1.5rem;
-				height: 1.5rem;
-			}
-
-			#searchBarInput {
-				width: auto;
-			}
-		}
-	}
-	// #filterTriangle {
-	// 	$size: 10px;
-
-	// 	height: 0;
-	// 	width: 0;
-	// 	border-left: $size solid black;
-	// 	border-top: $size solid transparent;
-	// 	border-bottom: $size solid transparent;
-	// }
+  background-color: white;
 }
 
-#recordTable {
-	width: 100%;
-	colgroup {
-		#colTitle {
-			width: 35%;
-		}
+/*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
+|                        |
+|  General Body Styling  |
+|                        |
+\_______________________*/
 
-		#colArtist {
-			width: 20%;
-		}
-
-		#colYear {
-			width: 15%;
-		}
-
-		.tableColCheck {
-			width: 10%;
-		}
-	}
-
-	.tableCheckbox {
-		pointer-events: none;
-
-	}
+body {
+  padding: 0;
+  margin: 0;
 }
 
+html,
+body {
+  height: 100%;
+}
+
+body {
+  @include initflex("col");
+}
+
+main {
+  flex: 1;
+}
+
+// Navigation Bar
+nav {
+  @include initflex("row");
+  height: 3.5rem;
+
+  #title {
+    margin-left: auto;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    padding-right: 1rem;
+
+    & > h1 {
+      margin: 0;
+    }
+  }
+
+  .navButton {
+    height: 100%;
+    width: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box; /* Firefox, other Gecko */
+    box-sizing: border-box; /* Opera/IE 8+ */
+  }
+
+  #navProfile {
+    margin: 0;
+    width: 3.5rem;
+  }
+}
+
+#navProfile {
+  #dropdownContent {
+    margin: 3.5rem 0 0 0;
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0;
+
+    span {
+      padding: 15px 10px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $dark3;
+      }
+    }
+
+    .hideProfileButton {
+      pointer-events: none;
+      opacity: 50%;
+    }
+  }
+}
+
+// Main and different views
+main {
+  #addView {
+    @include initflex("col");
+    align-items: center;
+    height: 100%;
+  }
+
+  #viewView {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .mainContainer {
+    width: 70%;
+    border: 1px solid;
+  }
+}
+
+/*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
+|                    |
+|  Add Records View  |
+|                    |
+\___________________*/
+
+#addView {
+  #recordForm {
+    @include initflex("col");
+    height: auto;
+    max-height: 450px;
+    padding: 25px;
+
+    .formSeparators {
+      padding: 15px;
+    }
+
+    #addArtist {
+      flex: 0 1 0;
+      display: flex;
+    }
+
+    #addRecords {
+      display: flex;
+      flex-direction: column;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      min-height: inherit;
+      max-height: inherit;
+    }
+  }
+}
+
+// temp
+#recordForm div,
+#recordForm section {
+  border: 1px solid;
+}
+
+// Add Records > Add artist fields
+#addArtist {
+  & > div {
+    border: none;
+    padding: 0 5px;
+  }
+
+  .disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  .artistHandler {
+    display: none;
+    margin: 0 0 0 auto;
+  }
+
+  #noArtistFound {
+    color: red;
+  }
+
+  #artistFound {
+    color: green;
+  }
+}
+
+// Add Records > Add Records Fields
+#addRecords {
+  & > * {
+    padding: 10px;
+    margin: 10px;
+  }
+
+  .recordGroup > div {
+    @include initflex("row");
+    padding: 5px;
+
+    & > div {
+      border: 0;
+      margin: 0 5px;
+    }
+
+    .yearDiv {
+      @include initflex("row");
+
+      & > div {
+        margin: 0 0.5rem;
+
+        & > span {
+          padding: 0 0.25rem 0 0;
+          height: 100%;
+          display: inline-block;
+        }
+      }
+
+      .yearInput {
+        width: 3rem;
+        border: none;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    }
+
+    .xButton {
+      margin-left: auto;
+    }
+  }
+
+  #submitGroup {
+    @include initflex("row");
+    justify-content: flex-end;
+    margin-top: auto;
+    order: 99;
+  }
+}
+
+/*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
+|                     |
+|  View Records View  |
+|                     |
+\____________________*/
+
+#viewRecordsContainer {
+  div,
+  section {
+    border: 1px solid;
+  }
+
+  .containerSeparator {
+    padding: 15px;
+  }
+
+  #queryingContainer {
+    @include initflex("col");
+    justify-content: center;
+
+    #searchBar {
+      @include initflex("row");
+      align-items: center;
+      padding: 0.5rem;
+
+      #filterToggle {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+
+      #searchBarInput {
+        width: auto;
+      }
+    }
+  }
+  // #filterTriangle {
+  // 	$size: 10px;
+
+  // 	height: 0;
+  // 	width: 0;
+  // 	border-left: $size solid black;
+  // 	border-top: $size solid transparent;
+  // 	border-bottom: $size solid transparent;
+  // }
+}
+
+// View Records > Query Fields
 #queryFields {
-	display: none;
-	flex-direction: column;
+  display: none;
+  flex-direction: column;
 
-	#queryTickFields {
-		@include initflex("row");
-	}
+  #queryTickFields {
+    @include initflex("row");
+  }
 
-	#querySearchFields {
-		@include initflex("row");
-	}
+  #querySearchFields {
+    @include initflex("row");
+  }
 
-	#querySortFields {
-		@include initflex("col");
-	}
+  #querySortFields {
+    @include initflex("col");
+  }
+}
+
+// View Records > Table
+#recordTable {
+  width: 100%;
+  colgroup {
+    #colTitle {
+      width: 35%;
+    }
+
+    #colArtist {
+      width: 20%;
+    }
+
+    #colYear {
+      width: 15%;
+    }
+
+    .tableColCheck {
+      width: 10%;
+    }
+  }
+
+  .tableCheckbox {
+    pointer-events: none;
+  }
+}
+
+/*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
+|                     |
+|  View Profile View  |
+|                     |
+\____________________*/
+
+#profileView {
+  display: none;
+  #notLoggedIn {
+    display: flex;
+  }
+
+  #loggedIn {
+    display: none;
+  }
 }

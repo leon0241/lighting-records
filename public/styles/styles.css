@@ -1,9 +1,72 @@
+@charset "UTF-8";
+/*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
+|                           |
+|  SASS Variables & Mixins  |
+|                           |
+\__________________________*/
+/*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
+|                        |
+|  Colour theme styling  |
+|                        |
+\_______________________*/
+body {
+  background-color: #e5f5e8;
+}
+
+* {
+  font-family: "Roboto", sans-serif;
+}
+
+nav {
+  background-color: #3d3d3d;
+  color: white;
+}
+nav .navButton {
+  background-color: #707070;
+}
+nav .navButton:hover {
+  background-color: #5c5c5c;
+}
+nav .navSelected {
+  background-color: #019d3f;
+}
+nav #navProfile {
+  background-color: #019d3f;
+}
+nav #navProfile #dropdownContent {
+  background-color: #707070;
+}
+nav #navProfile #dropdownContent li:hover {
+  background-color: #b8b8b8;
+}
+nav #title h1 {
+  font-family: "Noto Sans JP", sans-serif !important;
+}
+
+#recordForm {
+  background-color: white;
+  border-radius: 5px;
+}
+#recordForm #yearSide {
+  background-color: #b8b8b8;
+}
+
+#viewRecordsContainer {
+  background-color: white;
+}
+
+/*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
+|                        |
+|  General Body Styling  |
+|                        |
+\_______________________*/
 body {
   padding: 0;
   margin: 0;
 }
 
-html, body {
+html,
+body {
   height: 100%;
 }
 
@@ -19,14 +82,57 @@ main {
 nav {
   display: flex;
   flex-direction: row;
-  background-color: lightgray;
-  padding: 15px;
+  height: 3.5rem;
 }
 nav #title {
   margin-left: auto;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  padding-right: 1rem;
 }
 nav #title > h1 {
   margin: 0;
+}
+nav .navButton {
+  height: 100%;
+  width: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  -webkit-box-sizing: border-box;
+  /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;
+  /* Firefox, other Gecko */
+  box-sizing: border-box;
+  /* Opera/IE 8+ */
+}
+nav #navProfile {
+  margin: 0;
+  width: 3.5rem;
+}
+
+#navProfile #dropdownContent {
+  margin: 3.5rem 0 0 0;
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0;
+}
+#navProfile #dropdownContent span {
+  padding: 15px 10px;
+  cursor: pointer;
+}
+#navProfile #dropdownContent span:hover {
+  background-color: #5c5c5c;
+}
+#navProfile #dropdownContent .hideProfileButton {
+  pointer-events: none;
+  opacity: 50%;
 }
 
 main #addView {
@@ -45,6 +151,11 @@ main .mainContainer {
   border: 1px solid;
 }
 
+/*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
+|                    |
+|  Add Records View  |
+|                    |
+\___________________*/
 #addView #recordForm {
   display: flex;
   flex-direction: column;
@@ -68,7 +179,8 @@ main .mainContainer {
   max-height: inherit;
 }
 
-#recordForm div, #recordForm section {
+#recordForm div,
+#recordForm section {
   border: 1px solid;
 }
 
@@ -115,7 +227,6 @@ main .mainContainer {
   padding: 0 0.25rem 0 0;
   height: 100%;
   display: inline-block;
-  background-color: lightgray;
 }
 #addRecords .recordGroup > div .yearDiv .yearInput {
   width: 3rem;
@@ -135,7 +246,13 @@ main .mainContainer {
   order: 99;
 }
 
-#viewRecordsContainer div, #viewRecordsContainer section {
+/*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
+|                     |
+|  View Records View  |
+|                     |
+\____________________*/
+#viewRecordsContainer div,
+#viewRecordsContainer section {
   border: 1px solid;
 }
 #viewRecordsContainer .containerSeparator {
@@ -160,6 +277,23 @@ main .mainContainer {
   width: auto;
 }
 
+#queryFields {
+  display: none;
+  flex-direction: column;
+}
+#queryFields #queryTickFields {
+  display: flex;
+  flex-direction: row;
+}
+#queryFields #querySearchFields {
+  display: flex;
+  flex-direction: row;
+}
+#queryFields #querySortFields {
+  display: flex;
+  flex-direction: column;
+}
+
 #recordTable {
   width: 100%;
 }
@@ -179,21 +313,19 @@ main .mainContainer {
   pointer-events: none;
 }
 
-#queryFields {
+/*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
+|                     |
+|  View Profile View  |
+|                     |
+\____________________*/
+#profileView {
   display: none;
-  flex-direction: column;
 }
-#queryFields #queryTickFields {
+#profileView #notLoggedIn {
   display: flex;
-  flex-direction: row;
 }
-#queryFields #querySearchFields {
-  display: flex;
-  flex-direction: row;
-}
-#queryFields #querySortFields {
-  display: flex;
-  flex-direction: column;
+#profileView #loggedIn {
+  display: none;
 }
 
 /*# sourceMappingURL=styles.css.map */
