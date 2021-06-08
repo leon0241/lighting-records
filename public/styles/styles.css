@@ -1,19 +1,22 @@
+@charset "UTF-8";
 /*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
- |                           |
- |  SASS Variables & Mixins  |
- |                           |
- \__________________________*/
+|                           |
+|  SASS Variables & Mixins  |
+|                           |
+\__________________________*/
 /*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
- |                        |
- |  Colour theme styling  |
- |                        |
- \_______________________*/
- body {
+|                        |
+|  Colour theme styling  |
+|                        |
+\_______________________*/
+body {
   background-color: #e5f5e8;
 }
+
 * {
   font-family: "Roboto", sans-serif;
 }
+
 nav {
   background-color: #3d3d3d;
   color: white;
@@ -45,16 +48,19 @@ nav #navProfile #dropdownContent li:hover {
 nav #title h1 {
   font-family: "Noto Sans JP", sans-serif !important;
 }
+
 #recordForm {
   background-color: white;
   border-radius: 5px;
 }
+
 #addArtist .artistHandler#noArtistFound {
   color: red;
 }
 #addArtist .artistHandler#artistFound {
   color: #019d3f;
 }
+
 #addRecords .inputRow .yearSide {
   background-color: #b8b8b8;
 }
@@ -69,7 +75,7 @@ nav #title h1 {
 #addRecords .inputRow .xButton:hover {
   background-color: red;
   color: white;
-  transition: background-color 0.25s, color 0.25s;
+  transition: background-color 0.5s, color 0.5s;
 }
 #addRecords #submitGroup .submitButton {
   border: none;
@@ -91,31 +97,39 @@ nav #title h1 {
   cursor: pointer;
   background-color: #019d3f;
 }
+
 #viewRecordsContainer {
   background-color: white;
 }
+
 #profileContainer {
   background-color: white;
 }
+
 /*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
- |                        |
- |  General Body Styling  |
- |                        |
- \_______________________*/
+|                        |
+|  General Body Styling  |
+|                        |
+\_______________________*/
 body {
   padding: 0;
   margin: 0;
 }
-html, body {
+
+html,
+body {
   height: 100%;
 }
+
 body {
   display: flex;
   flex-direction: column;
 }
+
 main {
   flex: 1;
 }
+
 nav {
   display: flex;
   flex-direction: row;
@@ -150,6 +164,7 @@ nav #navProfile {
   margin: 0;
   width: 3.5rem;
 }
+
 #navProfile #dropdownContent {
   margin: 3.5rem 0 0 0;
   display: none;
@@ -170,6 +185,7 @@ nav #navProfile {
   pointer-events: none;
   opacity: 50%;
 }
+
 main .mainContainer {
   width: 70%;
   border: 1px solid;
@@ -190,11 +206,12 @@ main #profileView {
   flex-direction: column;
   align-items: center;
 }
+
 /*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
- |                    |
- |  Add Records View  |
- |                    |
- \___________________*/
+|                    |
+|  Add Records View  |
+|                    |
+\___________________*/
 #addView #recordForm {
   display: flex;
   flex-direction: column;
@@ -217,9 +234,12 @@ main #profileView {
   min-height: inherit;
   max-height: inherit;
 }
-#recordForm div, #recordForm section {
+
+#recordForm div,
+#recordForm section {
   border: 1px solid;
 }
+
 #addArtist > div {
   border: none;
   padding: 0 5px;
@@ -232,6 +252,7 @@ main #profileView {
   display: none;
   margin: 0 0 0 auto;
 }
+
 #addRecords > * {
   padding: 10px;
   margin: 10px;
@@ -274,12 +295,14 @@ main #profileView {
   margin-top: auto;
   order: 99;
 }
+
 /*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
- |                     |
- |  View Records View  |
- |                     |
- \____________________*/
-#viewRecordsContainer div, #viewRecordsContainer section {
+|                     |
+|  View Records View  |
+|                     |
+\____________________*/
+#viewRecordsContainer div,
+#viewRecordsContainer section {
   border: 1px solid;
 }
 #viewRecordsContainer .containerSeparator {
@@ -303,6 +326,7 @@ main #profileView {
 #viewRecordsContainer #queryingContainer #searchBar #searchBarInput {
   width: auto;
 }
+
 #queryFields {
   display: none;
   flex-direction: column;
@@ -319,6 +343,7 @@ main #profileView {
   display: flex;
   flex-direction: column;
 }
+
 .recordTable {
   width: 100%;
 }
@@ -337,8 +362,11 @@ main #profileView {
 .recordTable .tableCheckbox {
   pointer-events: none;
 }
+
 /*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
- |                     |
- |  View Profile View  |
- |                     |
- \____________________*/
+|                     |
+|  View Profile View  |
+|                     |
+\____________________*/
+
+/*# sourceMappingURL=styles.css.map */
