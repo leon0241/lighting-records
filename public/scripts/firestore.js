@@ -187,7 +187,7 @@ function addTableRow(data) {
 
   let stringValues = [data.title, data.artistRef, data.year];
 
-  let checkValues = Object.values(data.checks);
+  let checkValues = [data.checks.original, data.checks.damaged, data.checks.duplicate]
 
   let row = tableBody.insertRow(-1);
 
@@ -267,12 +267,19 @@ function submitQuery(that) {
 
   tableBody.innerHTML = "";
 
+  let secondaryCheck = false;
 
+  if (filters.sorts.primarySort === "name") {
+    filterQuery = filterQuery.orderBy("name")
+    secondaryCheck = true;
+    console.log("passed")
+  }
+  console.log(filters.sorts.primarySort)
+  console.log(filters.sorts.secondarySort)
 
-
-  filterQuery.orderBy("name").get({source: "cache"}).then((querySnapshot) => {
+  filterQuery.get({source: "cache"}).then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
-      console.log(doc.data())
+      // console.log(doc.data())
       let recordsList = doc.ref.collection("recordDB");
       let artistName = doc.data().name;
 
@@ -288,16 +295,22 @@ function submitQuery(that) {
       //   recordFilterQuery = recordFilterQuery.where("year", "<=", filters.yearMax)
       // } 
       if (filters.checks.original === true) {
-        recordFilterQuery = recordFilterQuery.where("original", "==", true)
+        recordFilterQuery = recordFilterQuery.where("checks.original", "==", true)
       } 
       if (filters.checks.damaged === true) {
-        recordFilterQuery = recordFilterQuery.where("damaged", "==", true)
+        recordFilterQuery = recordFilterQuery.where("checks.damaged", "==", true)
       } 
       if (filters.checks.duplicate === true) {
-        recordFilterQuery = recordFilterQuery.where("duplicate", "==", true)
+        recordFilterQuery = recordFilterQuery.where("checks.duplicate", "==", true)
       }
 
-      recordFilterQuery.orderBy("title").get({source: "cache"})
+      if (secondaryCheck === true) {
+        recordFilterQuery = recordFilterQuery.orderBy(filters.sorts.secondarySort)
+      } else {
+        recordFilterQuery = recordFilterQuery.orderBy(filters.sorts.primarySort)
+      }
+
+      recordFilterQuery.get({source: "cache"})
       .then((recordSnap) => {
         recordSnap.forEach((recordDoc) => {
           let data = recordDoc.data();
@@ -308,6 +321,8 @@ function submitQuery(that) {
     })
   })
 }
+
+
 
 queryReset.addEventListener("click", (e) => {
   queryForm.reset()

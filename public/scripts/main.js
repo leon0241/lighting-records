@@ -113,10 +113,14 @@ secondaryAscend.addEventListener("click",  (e) => {
 })
 
 primarySort.addEventListener("change", (e) => {
-  if (primarySort.value != "sortArtist") {
+  if (primarySort.value != "name") {
     secondarySort.disabled = true;
     secondaryAscend.style.pointerEvents = "none"
     secondaryAscend.style.opacity = "50%"
+  } else {
+    secondarySort.disabled = false;
+    secondaryAscend.style.pointerEvents = "auto"
+    secondaryAscend.style.opacity = "100%"
   }
 })
 
