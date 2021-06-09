@@ -100,34 +100,18 @@ document.getElementById("filterToggle").addEventListener("click", (e) => {
 |                          |
 \_________________________*/
 
-const tableBody = document.getElementById("tableBody");
+primaryAscend.addEventListener("click", (e) => {
+  primaryAscend.classList.contains("descendingOrder") === false
+    ? primaryAscend.classList.add("descendingOrder")
+    : primaryAscend.classList.remove("descendingOrder");
+});
 
-// View Words - Query Fields Container
-const queryContainer = document.getElementById("queryFields");
-
-// View Words - Query Individual Fields
-const queryTitle = document.getElementById("queryTitle");
-const queryArtist = document.getElementById("queryArtist");
-const queryYearMin = document.getElementById("queryYearMin");
-const queryYearMax = document.getElementById("queryYearMax");
-
-// View Words - Query checkbox fields
-const queryTickFields = document.getElementsByClassName("queryTickLabels")
-const columnTickFields = document.getElementsByClassName("columnTickLabels")
-
-// View Words - Query select fields
-const primarySort = document.getElementById("primarySort")
-const primaryAscend = document.getElementById("primaryAscend")
-const secondarySort = document.getElementById("secondarySort")
-const secondaryAscend = document.getElementById("secondaryAscend")
-
-// queryContainer, queryTitle, queryArtist, queryYearMin, queryYearMax
-// queryTickFields(class), columnTickFields(class)
-// primarySort, primaryAscend, secondarySort, secondaryAscend
-
-queryTitle.addEventListener("change", (e) => {
-  
+secondaryAscend.addEventListener("click",  (e) => {
+  secondaryAscend.classList.contains("descendingOrder") === false
+    ? secondaryAscend.classList.add("descendingOrder")
+    : secondaryAscend.classList.remove("descendingOrder");
 })
+
 
 /*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
 |                           |

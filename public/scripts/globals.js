@@ -56,6 +56,10 @@ const primaryAscend = document.getElementById("primaryAscend")
 const secondarySort = document.getElementById("secondarySort")
 const secondaryAscend = document.getElementById("secondaryAscend")
 
+// View Words - Query Buttons
+const queryReset = document.getElementById("queryResetButton")
+const querySubmit = document.getElementById("querySubmitButton")
+
 // User Profile
 const userProfileTitle = document.getElementById("userProfileTitle");
 

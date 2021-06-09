@@ -183,7 +183,7 @@
 				<!-- Main Container -->
         <div class="mainContainer" id="viewRecordsContainer">
 					<!-- Query Container -->
-          <section id="queryingContainer" class="containerSeparator">
+          <form id="queryForm" class="containerSeparator" onsubmit="submitQuery(this);return false">
 						<!-- General Search bar -->
             <div id="searchBar">
               <button id="filterToggle" type="button"></button>
@@ -218,12 +218,14 @@
                   <label for="queryYearMin">Filter Years: </label>
                   <div>
                     <input
-                      type="number" name="queryYear"
+                      type="number" name="queryYearMin"
                       id="queryYearMin" class="querySearchInput"
+                      min="1900" max="1999"
                     />
                     <input
-                      type="number" name="queryYear"
-                      id="queryYearMax" class="querySearchInput"
+                      type="number" name="queryYearMax"
+                      id="queryYearMax" class="querySearchInput" 
+                      min="1900" max="1999"
                     />
                   </div>
                 </div>
@@ -235,28 +237,28 @@
               <!-- Original Cover -->
                 <input
                   type="checkbox" name="queryCover"
-                  id="queryCover" class="queryTickInput"
+                  id="queryCover" class="queryTickInput" 
                 />
                 <label for="queryCover" class="tickQueryLabels">Cover Art</label>
 
               <!-- Damaged Cover -->
                 <input
                   type="checkbox" name="queryDmg"
-                  id="queryDmg" class="queryTickInput"
+                  id="queryDmg" class="queryTickInput" 
                 />
                 <label for="queryDmg" class="tickQueryLabels">Damaged</label>
 
               <!-- Duplicated Record -->
                 <input
                   type="checkbox" name="queryDupe"
-                  id="queryDupe" class="queryTickInput"
+                  id="queryDupe" class="queryTickInput" 
                 />
                 <label for="queryDupe" class="tickQueryLabels">Duplicates</label>
 
               <!-- Band -->
                 <input
                   type="checkbox" name="queryBand"
-                  id="queryBand" class="queryTickInput"
+                  id="queryBand" class="queryTickInput" 
                 />
                 <label for="queryBand" class="tickQueryLabels">Band</label>
 
@@ -279,15 +281,15 @@
                   <option value="sortArtist">Artist</option>
                   <option value="sortYear">Year</option>
                 </select>
-                <button class="ascendButton" id="primaryAscend">
-
+                <button class="ascendButton" id="primaryAscend" type="button">
+                  ▲ 
                 </button>
                 <select name="secondarySort" id="secondarySort">
                   <option value="sortTitle">Title</option>
                   <option value="sortYear">Year</option>
                 </select>
-                <button class="ascendButton" id="secondaryAscend">
-
+                <button class="ascendButton" id="secondaryAscend" type="button">
+                  ▲ 
                 </button>
               </section>
 
@@ -296,47 +298,56 @@
                 <!-- Select Title Column -->
                 <input
                   type="checkbox" name="titleColumn"
-                  id="titleColumn" class="queryColumns"
+                  id="titleColumn" class="queryColumns" checked
                 />
                 <label for="titleColumn" class="columnQueryLabels">Title</label>
 
                 <!-- Select Artist Column -->
                 <input
                   type="checkbox" name="artistColumn"
-                  id="artistColumn" class="queryColumns"
+                  id="artistColumn" class="queryColumns" checked
                 />
                 <label for="artistColumn" class="columnQueryLabels">Artist</label>
 
                 <!-- Select Year Column -->
                 <input
                   type="checkbox" name="yearColumn"
-                  id="yearColumn" class="queryColumns"
+                  id="yearColumn" class="queryColumns" checked
                 />
                 <label for="yearColumn" class="columnQueryLabels">Year</label>
 
                 <!-- Select Original Cover Column -->
                 <input
                   type="checkbox" name="artColumn"
-                  id="artColumn" class="queryColumns"
+                  id="artColumn" class="queryColumns" checked
                 />
                 <label for="artColumn" class="columnQueryLabels">Cover Art</label>
 
                 <!-- Select Duplicate Column -->
                 <input
                   type="checkbox" name="dupeColumn"
-                  id="dupeColumn" class="queryColumns"
+                  id="dupeColumn" class="queryColumns" checked
                 />
                 <label for="dupeColumn" class="columnQueryLabels">Duplicate</label>
 
                 <!-- Select Damaged Column -->
                 <input
                   type="checkbox" name="dmgColumn"
-                  id="dmgColumn" class="queryColumns"
+                  id="dmgColumn" class="queryColumns" checked
                 />
                 <label for="dmgColumn" class="columnQueryLabels">Damaged</label>
               </section>
+
+              <section id="querySubmitField" class="querySectionContainer">
+                <button type="button" id="queryResetButton" class="queryButton">
+                  Reset
+                </button>
+                <button type="submit" id="querySubmitButton" class="queryButton">
+                  Submit
+                </button>
+              </section>
             </div>
-          </section>
+          </form>
 
 					<!-- Table with entries -->
           <table id="viewRecordTable" class="containerSeparator recordTable">

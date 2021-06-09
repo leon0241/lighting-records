@@ -129,12 +129,12 @@ artistDB.orderBy("name").get({ source: 'cache' })
   if (querySnapshot.empty) {
     artistDB.orderBy("name").get({ source: 'server' })
     .then((querySnapshot) => {
-      loadDatabase(querySnapshot)
+      loadDatabaseServer(querySnapshot)
     })
-    console.log("server")
+    console.log("Loading from server :(")
   } else {
     loadDatabase(querySnapshot)
-    console.log("cache")
+    console.log("Loading from cache :)")
   }
 })
 
@@ -144,11 +144,11 @@ function loadDatabase(querySnapshot) {
   querySnapshot.forEach((doc) => {
     let recordsList = doc.ref.collection("recordDB");
     let artistName = doc.data().name;
-    console.log(doc.data());
+    // console.log(doc.data());
 
     recordsList
       .orderBy("title")
-      .get()
+      .get({source: "cache"})
       .then((recordSnap) => {
         recordSnap.forEach((recordDoc) => {
           let data = recordDoc.data();
@@ -158,6 +158,189 @@ function loadDatabase(querySnapshot) {
       });
   });
 }
+
+function loadDatabaseServer(querySnapshot) {
+  tableBody.innerHTML = "";
+
+  querySnapshot.forEach((doc) => {
+    let recordsList = doc.ref.collection("recordDB");
+    let artistName = doc.data().name;
+    // console.log(doc.data());
+
+    recordsList
+      .orderBy("title")
+      .get({source: "server"})
+      .then((recordSnap) => {
+        recordSnap.forEach((recordDoc) => {
+          let data = recordDoc.data();
+          data.artistRef = artistName;
+          addTableRow(data);
+        });
+      });
+  });
+}
+
+// add row dom
+function addTableRow(data) {
+
+  console.log(data)
+
+  let stringValues = [data.title, data.artistRef, data.year];
+
+  let checkValues = Object.values(data.checks);
+
+  let row = tableBody.insertRow(-1);
+
+  // for each value insert row text
+  stringValues.forEach((element, index) => {
+    let newCell = row.insertCell(index);
+    let cellText = document.createTextNode(element);
+    newCell.appendChild(cellText);
+  });
+
+  checkValues.forEach((element, index) => {
+    let newCell = row.insertCell(index + stringValues.length);
+    newCell.classList.add("tableCheckbox");
+    let checkbox = document.createElement("input");
+    checkbox.setAttribute("type", "checkbox");
+
+    checkbox.checked = element === true ? true : false;
+
+    newCell.appendChild(checkbox);
+  });
+}
+
+/*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
+|                            |
+|  Read firestore functions  |
+|                            |
+\___________________________*/
+
+
+// queryContainer, queryTitle, queryArtist, queryYearMin, queryYearMax
+// queryTickFields(class), columnTickFields(class)
+// primarySort, primaryAscend, secondarySort, secondaryAscend
+// queryReset, querySubmit
+
+function submitQuery(that) {
+  let elements = that.elements
+
+  console.log(that.elements["queryTitle"])
+
+  ascFilters = document.getElementsByClassName("ascendButton")
+
+  // If descending return true, if ascending return false
+  primary = ascFilters[0].classList.contains("descendingOrder") ? true : false
+  secondary = ascFilters[1].classList.contains("descendingOrder") ? true : false
+
+
+
+  let filters = {
+    name: elements["queryArtist"].value.toLowerCase(),
+    title: elements["queryTitle"].value.toLowerCase(),
+    yearMin: elements["queryYearMin"].value,
+    yearMax: elements["queryYearMax"].value,
+    checks: {
+      original: elements["queryCover"].checked,
+      damaged: elements["queryDmg"].checked,
+      duplicate: elements["queryDupe"].checked,
+      band: elements["queryBand"].checked,
+      dual: elements["queryDual"].checked,
+    },
+    sorts: {
+      primarySort: elements["primarySort"].value,
+      primaryAsc: primary,
+      secondarySort: elements["secondarySort"].value,
+      secondaryAsc: secondary
+    }
+  }
+
+  let filterQuery = artistDB
+
+  if (filters.name != "") {
+    filterQuery = filterQuery.where("name", "==", filters.name)
+  } else if (filters.checks.band === true) {
+    filterQuery = filterQuery.where("band", "==", true)
+  }
+
+  console.log(filters)
+
+  // let recordFiltersArray = {}
+
+  // if (filters.title != "") {
+  //   recordFiltersArray.name = filters.title
+  // }
+  // if (filters.yearMin != "") {
+  //   recordFiltersArray.yearMin = filters.yearMin
+  // } 
+  // if (filters.yearMax != "") {
+  //   recordFiltersArray.yearMax = filters.yearMax
+  // } 
+  // if (filters.checks.original === true) {
+  //   recordFiltersArray.original = true
+  // } 
+  // if (filters.checks.damaged === true) {
+  //   recordFiltersArray.damaged = true
+  // } 
+  // if (filters.checks.duplicate === true) {
+  //   recordFiltersArray.duplicate = true
+  // }
+  // if (filters.checks.dual === true) {
+  //   recordFiltersArray.dual = true
+  // }
+  // console.log(recordFiltersArray)
+
+  tableBody.innerHTML = "";
+
+  filterQuery.get({source: "cache"}).then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      console.log(doc.data())
+      let recordsList = doc.ref.collection("recordDB");
+      let artistName = doc.data().name;
+
+      let recordFilterQuery = recordsList
+
+      if (filters.title != "") {
+        recordFilterQuery = recordFilterQuery.where("title", "==", filters.title)
+      }
+      // if (filters.yearMin != "") {
+      //   recordFilterQuery = recordFilterQuery.where("year", ">=", filters.yearMin)
+      // } 
+      // if (filters.yearMax != "") {
+      //   recordFilterQuery = recordFilterQuery.where("year", "<=", filters.yearMax)
+      // } 
+      if (filters.checks.original === true) {
+        recordFilterQuery = recordFilterQuery.where("original", "==", true)
+      } 
+      if (filters.checks.damaged === true) {
+        recordFilterQuery = recordFilterQuery.where("damaged", "==", true)
+      } 
+      if (filters.checks.duplicate === true) {
+        recordFilterQuery = recordFilterQuery.where("duplicate", "==", true)
+      }
+
+      recordFilterQuery.orderBy("title").get({source: "cache"})
+      .then((recordSnap) => {
+        recordSnap.forEach((recordDoc) => {
+          let data = recordDoc.data();
+          data.artistRef = artistName;
+          addTableRow(data);
+        });
+      });
+    })
+  })
+}
+
+
+
+// let string = `.where("name", "==" , "t.rex")`
+// let compstring = artistDB.where("band", "==", )
+// console.log(compstring)
+// compstring.get().then((querySnapshot) => {
+//   querySnapshot.forEach((doc) => {
+//     console.log(doc.data())
+//   })
+// })
 
 // artistDB.get({source: "cache"}).then((querySnapshot) => {
 //   querySnapshot.forEach((doc) => {
@@ -189,36 +372,6 @@ function loadDatabase(querySnapshot) {
 //         });
 //     });
 //   });
-
-// add row dom
-function addTableRow(data) {
-
-  let stringValues = [data.title, data.artistRef, data.year];
-
-  let checkValues = Object.values(data.checks);
-
-  let row = tableBody.insertRow(-1);
-
-  // for each value insert row text
-  stringValues.forEach((element, index) => {
-    let newCell = row.insertCell(index);
-    let cellText = document.createTextNode(element);
-    newCell.appendChild(cellText);
-  });
-
-  checkValues.forEach((element, index) => {
-    let newCell = row.insertCell(index + stringValues.length);
-    newCell.classList.add("tableCheckbox");
-    let checkbox = document.createElement("input");
-    checkbox.setAttribute("type", "checkbox");
-
-    checkbox.checked = element === true ? true : false;
-
-    newCell.appendChild(checkbox);
-  });
-}
-
-
 
 
 

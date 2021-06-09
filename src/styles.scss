@@ -431,7 +431,7 @@ main {
     padding: 15px;
   }
 
-  #queryingContainer {
+  #queryForm {
     @include initflex("col");
     justify-content: center;
 
@@ -532,6 +532,10 @@ main {
       height: 1.5rem;
       width: 1.5rem;
       margin-right: 0.5rem;
+
+      &.descendingOrder {
+        transform: rotate(180deg);
+      }
     }
   }
 }

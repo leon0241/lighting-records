@@ -322,22 +322,22 @@ main #profileView {
 #viewRecordsContainer .containerSeparator {
   padding: 15px;
 }
-#viewRecordsContainer #queryingContainer {
+#viewRecordsContainer #queryForm {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-#viewRecordsContainer #queryingContainer #searchBar {
+#viewRecordsContainer #queryForm #searchBar {
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: 0.5rem;
 }
-#viewRecordsContainer #queryingContainer #searchBar #filterToggle {
+#viewRecordsContainer #queryForm #searchBar #filterToggle {
   width: 1.5rem;
   height: 1.5rem;
 }
-#viewRecordsContainer #queryingContainer #searchBar #searchBarInput {
+#viewRecordsContainer #queryForm #searchBar #searchBarInput {
   width: auto;
 }
 
@@ -397,6 +397,9 @@ main #profileView {
   height: 1.5rem;
   width: 1.5rem;
   margin-right: 0.5rem;
+}
+#queryFields #querySortFields > button.descendingOrder {
+  transform: rotate(180deg);
 }
 
 .recordTable {
