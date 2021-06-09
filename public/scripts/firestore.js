@@ -183,7 +183,7 @@ function loadDatabaseServer(querySnapshot) {
 // add row dom
 function addTableRow(data) {
 
-  console.log(data)
+  // console.log(data)
 
   let stringValues = [data.title, data.artistRef, data.year];
 
@@ -225,7 +225,7 @@ function addTableRow(data) {
 function submitQuery(that) {
   let elements = that.elements
 
-  console.log(that.elements["queryTitle"])
+  // console.log(that.elements["queryTitle"])
 
   ascFilters = document.getElementsByClassName("ascendButton")
 
@@ -267,10 +267,10 @@ function submitQuery(that) {
 
   tableBody.innerHTML = "";
 
-  
 
 
-  filterQuery.get({source: "cache"}).orderBy("name").then((querySnapshot) => {
+
+  filterQuery.orderBy("name").get({source: "cache"}).then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
       console.log(doc.data())
       let recordsList = doc.ref.collection("recordDB");
@@ -309,7 +309,14 @@ function submitQuery(that) {
   })
 }
 
+queryReset.addEventListener("click", (e) => {
+  queryForm.reset()
 
+  artistDB.orderBy("name").get({ source: 'cache' })
+  .then((querySnapshot) => {
+    loadDatabase(querySnapshot)
+  })
+})
 
 // let string = `.where("name", "==" , "t.rex")`
 // let compstring = artistDB.where("band", "==", )

@@ -38,8 +38,8 @@ const addButton = document.getElementById("addAnotherRecord");
 const tableBody = document.getElementById("tableBody");
 
 // View Words - Query Fields Container
+const queryForm = document.getElementById("queryForm");
 const queryContainer = document.getElementById("queryFields");
-
 // View Words - Query Individual Fields
 const queryTitle = document.getElementById("queryTitle");
 const queryArtist = document.getElementById("queryArtist");

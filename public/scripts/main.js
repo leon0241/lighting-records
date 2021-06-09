@@ -112,6 +112,14 @@ secondaryAscend.addEventListener("click",  (e) => {
     : secondaryAscend.classList.remove("descendingOrder");
 })
 
+primarySort.addEventListener("change", (e) => {
+  if (primarySort.value != "sortArtist") {
+    secondarySort.disabled = true;
+    secondaryAscend.style.pointerEvents = "none"
+    secondaryAscend.style.opacity = "50%"
+  }
+})
+
 
 /*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
 |                           |
