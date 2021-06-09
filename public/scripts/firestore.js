@@ -1,12 +1,7 @@
+console.log("2")
 let artistFound = false;
 let artistID = "";
 let database = db.collection("artistsNew");
-
-/*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
-|                            |
-|  General DOM Manipulation  |
-|                            |
-\___________________________*/
 
 /*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
 |                             |
@@ -30,7 +25,8 @@ artistName.addEventListener("change", (e) => {
       if (querySnapshot.empty) {
         // no artist DOM manipulation
         noArtist(true);
-        // if querySnapshot isn't empty
+
+      // if querySnapshot isn't empty
       } else {
         // set the id to the found doc's id
         querySnapshot.forEach((doc) => {
@@ -46,47 +42,39 @@ artistName.addEventListener("change", (e) => {
     });
 });
 
-function resetForm() {
-  let arr = recordSectionContainer.children;
-  Array.from(arr).forEach((e) => {
-    if (e.id != "recordGroup0" && e.id != "submitGroup") {
-      recordSectionContainer.removeChild(e);
-    }
-  });
-
-  recordForm.reset();
-}
-
-// Submits the form
+// submits the form
 function submitForm(that) {
+  // array of form elements
   let valueArr = that.elements;
+  // reset row index to 0
   rowIndex = 0;
 
-  // Fill out artist object
   let artistValues = {
-    artistName: valueArr["artistName"].value,
-    bandCheck: valueArr["artistBand"].checked,
-  };
+    name: valueArr["artistName"].value.toLowerCase(),
+    band: valueArr["artistBand"].checked,
+  }
 
-  let recordValues = [];
+  let recordValues = []
   let seclen = recordSectionContainer.children.length - 1;
 
   // Repeat for how many record sections there are
   for (let i = 0; i < seclen; i++) {
     // Fill out record object
     let recordValue = {
-      recordName: valueArr[`songTitle${i}`].value,
-      recordYear: `19${valueArr[`songYear${i}`].value}`,
-      recordArt: valueArr[`coverArt${i}`].checked,
-      recordDmg: valueArr[`coverDmg${i}`].checked,
-      recordDupe: valueArr[`duplicate${i}`].checked,
-    };
+      title: valueArr[`songTitle${i}`].value.toLowerCase(),
+      year: `19${valueArr[`songYear${i}`].value}`,
+      checks: {
+        damaged: valueArr[`coverDmg${i}`].checked,
+        duplicate: valueArr[`coverArt${i}`].checked,
+        original: valueArr[`duplicate${i}`].checked,
+      }
+    }
 
     // Append to array of objects
     recordValues.push(recordValue);
   }
 
-  // adds 2 arrays to firstore
+  // adds artist + record values to firestore database
   addToFirestore(artistValues, recordValues);
 
   resetForm();
@@ -100,131 +88,34 @@ function addToFirestore(artist, records) {
   if (artistFound === false) {
     // Add entry to artistDB
     artistDB
-      .add({
-        band: artist.bandCheck,
-        name: artist.artistName,
-      })
-      // Then, store the id and add record
-      .then((docref) => {
-        artistID = docref.id;
+    .add(artist)
+    // Then, store the id and add record
+    .then((docref) => {
+      artistID = docref.id;
 
-        // Store reference to ID
-        let artistRef = artistDB.doc(artistID);
+      // Store reference to subcollection
+      let subcollection = docref.collection("recordDB")
 
-        // call add records function
-        addRecords(records, artistRef);
-      });
-    // If artist is found
+      // Call add records function
+      addRecords(records, subcollection);
+    });
+
+  // If artist is found
   } else {
-    // Store reference to ID
+    // Store reference to subcollection
     let artistRef = artistDB.doc(artistID);
+    let subcollection = artistRef.collection("recordDB")
 
     // Call add records function
-    addRecords(records, artistRef);
+    addRecords(records, subcollection);
   }
 }
 
 // Add records to record collection
-function addRecords(records, artistRef) {
-  // for each value in record
-  records.forEach((record) => {
-    // add to record with values
-    recordDB.add({
-      artist: artistRef,
-      damaged: record.recordDmg,
-      duplicate: record.recordDupe,
-      name: record.recordName,
-      original: record.recordArt,
-      year: record.recordYear,
-    });
-  });
+function addRecords(records, collection) {
+  // for each value in record, add to record with values
+  records.forEach(record => collection.add(record));
 }
-
-// db.collection("artistsNew").get().then((querySnapshot) => {
-//   querySnapshot.forEach((doc) => {
-//     console.log(doc)
-//     doc.ref.collection("subcol").add({
-//       password: "a",
-//       name: "b",
-//     })
-//   })
-// })
-
-// let artistList = []
-
-// recordDB.get().then((querySnapshot) => {
-//   querySnapshot.forEach((doc) => {
-
-//     let data = doc.data()
-
-//     let recordValues = {
-//       checks: {
-//         damaged: data.damaged,
-//         duplicate: data.duplicate,
-//         original: data.original
-//       },
-//       title: data.name.toLowerCase(),
-//       year: data.year
-//     }
-
-//     data.artist.get().then((artistDoc) => {
-//       data.artistData = artistDoc.data()
-//     }).then((e) => {
-
-//       let artistValues = {
-//         band: data.artistData.band,
-//         name: data.artistData.name.toLowerCase(),
-//       }
-
-//       console.log(artistValues.name)
-      
-//       if (artistList.includes(artistValues.name)) {
-//         newArtistDB
-//         .where("name", "==", artistValues.name)
-//         .get()
-//         .then((querySnapshot) => {
-//           let artist = querySnapshot.docs[0]
-//           let recordsColl = artist.ref.collection("recordDB")
-//           recordsColl.add(recordValues)
-//         })
-//       } else {
-//         artistList.push(artistValues.name)
-
-//         newArtistDB
-//         .add(artistValues)
-//         .then((docref) => {
-//           docref.collection("recordDB").add(recordValues)
-//         })
-//         .catch(error => console.log(error))
-//       }
-
-//       // newArtistDB
-//       // .where("name", "==", artistValues.name)
-//       // .get()
-//       // .then((querySnapshot) => {
-//       //   console.log(querySnapshot)
-
-//       //   if (querySnapshot.empty) {
-//       //     newArtistDB
-//       //     .add(artistValues)
-//       //     .then((docref) => {
-//       //       docref.collection("recordDB").add(recordValues)
-//       //     })
-//       //     .catch(error => console.log(error))
-
-//       //   } else {
-//       //     let artist = querySnapshot.docs[0]
-//       //     let recordsColl = artist.ref.collection("recordDB")
-//       //     recordsColl.add(recordValues)
-//       //   }
-//       // })
-//       // .catch(error => console.log(error))
-
-//       console.log(recordValues)
-//     })
-//     .catch(error => console.log(error))
-//   })
-// })
 
 /*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
 |                            |
@@ -232,40 +123,79 @@ function addRecords(records, artistRef) {
 |                            |
 \___________________________*/
 
-// orderby name > title
-newArtistDB
-  .orderBy("name")
-  .get()
-  .then((querySnapshot) => {
-    tableBody.innerHTML = "";
 
-    querySnapshot.forEach((doc) => {
-      let recordsList = doc.ref.collection("recordDB");
-      let artistName = doc.data().name;
-      console.log(doc.data());
+artistDB.orderBy("name").get({ source: 'cache' })
+.then((querySnapshot) => {
+  if (querySnapshot.empty) {
+    artistDB.orderBy("name").get({ source: 'server' })
+    .then((querySnapshot) => {
+      loadDatabase(querySnapshot)
+    })
+    console.log("server")
+  } else {
+    loadDatabase(querySnapshot)
+    console.log("cache")
+  }
+})
 
-      recordsList
-        .orderBy("title")
-        .get()
-        .then((recordSnap) => {
-          recordSnap.forEach((recordDoc) => {
-            let data = recordDoc.data();
-            data.artistRef = artistName;
-            addTableRow(data);
-          });
+function loadDatabase(querySnapshot) {
+  tableBody.innerHTML = "";
+
+  querySnapshot.forEach((doc) => {
+    let recordsList = doc.ref.collection("recordDB");
+    let artistName = doc.data().name;
+    console.log(doc.data());
+
+    recordsList
+      .orderBy("title")
+      .get()
+      .then((recordSnap) => {
+        recordSnap.forEach((recordDoc) => {
+          let data = recordDoc.data();
+          data.artistRef = artistName;
+          addTableRow(data);
         });
-    });
+      });
   });
+}
+
+// artistDB.get({source: "cache"}).then((querySnapshot) => {
+//   querySnapshot.forEach((doc) => {
+//     console.log(doc.data())
+//   })
+// })
+
+// orderby name > title
+// artistDB.limit(20)
+//   .orderBy("name")
+//   .get()
+//   .then((querySnapshot) => {
+//     tableBody.innerHTML = "";
+
+//     querySnapshot.forEach((doc) => {
+//       let recordsList = doc.ref.collection("recordDB");
+//       let artistName = doc.data().name;
+//       console.log(doc.data());
+
+//       recordsList
+//         .orderBy("title")
+//         .get()
+//         .then((recordSnap) => {
+//           recordSnap.forEach((recordDoc) => {
+//             let data = recordDoc.data();
+//             data.artistRef = artistName;
+//             addTableRow(data);
+//           });
+//         });
+//     });
+//   });
 
 // add row dom
 function addTableRow(data) {
-  console.log(data);
-  console.log(data.title, data.artistRef);
 
   let stringValues = [data.title, data.artistRef, data.year];
 
   let checkValues = Object.values(data.checks);
-  console.log(checkValues);
 
   let row = tableBody.insertRow(-1);
 
@@ -326,38 +256,123 @@ function addTableRow(data) {
 //   })
 // })
 
-// creates table elements
-function createTableElement(data) {
-  // text values
-  let values = [data.name, data.artistData.name, data.year];
 
-  // bool checks
-  let checkValues = [data.original, data.damaged, data.duplicate];
+/*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
+|                                        |
+|  Scuffed Database migration algorithm  |
+|                                        |
+\_______________________________________*/
 
-  // new row at end
-  let row = tableBody.insertRow(-1);
+// // define artist list (DO NOT TRY AT HOME)
+// let artistList = [];
 
-  // for each value insert row text
-  values.forEach((element, index) => {
-    let newCell = row.insertCell(index);
-    let cellText = document.createTextNode(element);
-    newCell.appendChild(cellText);
-  });
+// // get all records then ->
+// recordDB.get().then((querySnapshot) => {
+//   querySnapshot.forEach((doc) => {
+//     // Get document data
+//     let data = doc.data();
 
-  // for each value insert row checkbox
-  checkValues.forEach((element, index) => {
-    // offset row text
-    let newCell = row.insertCell(index + values.length);
-    newCell.classList.add("tableCheckbox");
-    let checkbox = document.createElement("input");
-    checkbox.setAttribute("type", "checkbox");
+//     // Restructured data format for record
+//     let recordValues = {
+//       // Map with checkboxes
+//       checks: {
+//         damaged: data.damaged,
+//         duplicate: data.duplicate,
+//         original: data.original,
+//       },
+//       title: data.name.toLowerCase(),
+//       year: data.year,
+//     };
 
-    // set checkbox to true or false
-    if (element === true) {
-      checkbox.checked = true;
-    } else {
-      checkbox.checked = false;
-    }
-    newCell.appendChild(checkbox);
-  });
-}
+//     // Get record artist then ->
+//     data.artist
+//       .get()
+//       // Set artistData to document artist data, then ->
+//       .then((artistDoc) => {
+//         data.artistData = artistDoc.data();
+//       })
+
+//       // Add data to database
+//       .then((e) => {
+//         // Convert text to lowercase
+//         let artistValues = {
+//           band: data.artistData.band,
+//           name: data.artistData.name.toLowerCase(),
+//         };
+
+//         // Super scuffed method, other one doesn't work - listed below this
+
+//         console.log(artistValues)
+//         console.log(recordValues)
+
+//         // if record artist name is in the array then ->
+//         if (artistList.includes(artistValues.name)) {
+//           //Get artistDB where name == record artist name then ->
+//           artistDB
+//             .where("name", "==", artistValues.name)
+//             .get()
+
+//             // Add data to database
+//             .then((querySnapshot) => {
+//               // Set artist reference variable as querySnapshot data
+//               let artist = querySnapshot.docs[0];
+
+//               // Point into collection recordDB in artist
+//               let recordsColl = artist.ref.collection("recordDB");
+
+//               // Add document in collection with record values
+//               recordsColl.add(recordValues);
+//             });
+
+//           // If record artist isn't in array
+//         } else {
+//           // Put the record artist into the array
+//           artistList.push(artistValues.name);
+
+//           // Add new artist with artist values then ->
+//           artistDB
+//             .add(artistValues)
+//             // Add document to collection with record values
+//             .then((docref) => {
+//               docref.collection("recordDB").add(recordValues);
+//             })
+//             .catch((error) => console.log(error));
+//         }
+
+//         // This should work but doesn't for some reason
+
+//         // Get artist DB where name = artist name then ->
+//         // artistDB
+//         //   .where("name", "==", artistValues.name)
+//         //   .get()
+//         //   .then((querySnapshot) => {
+//         //     // Check if querysnapshot is empty
+//         //     if (querySnapshot.empty) {
+//         //       // If it is, means no artist was found
+
+//         //       // Add new artist with artist values then ->
+//         //       artistDB
+//         //         .add(artistValues)
+//         //         // Add document to collection with record values
+//         //         .then((docref) => {
+//         //           docref.collection("recordDB").add(recordValues);
+//         //         })
+//         //         .catch((error) => console.log(error));
+
+//         //       // If querysnapshot isn't empty
+//         //     } else {
+//         //       // Set artist reference variable as querySnapshot data
+//         //       let artist = querySnapshot.docs[0];
+
+//         //       // Point into collection recordDB in artist
+//         //       let recordsColl = artist.ref.collection("recordDB");
+
+//         //       // Add document in collection with record values
+//         //       recordsColl.add(recordValues);
+//         //     }
+//         //   })
+//         //   .catch((error) => console.log(error));
+//       })
+//       .catch((error) => console.log(error));
+//   });
+// });

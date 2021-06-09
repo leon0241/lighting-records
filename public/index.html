@@ -27,7 +27,6 @@
 			to avoid connecting the SDK to running emulators.
 		-->
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
-    <!-- <script type="text/javascript" src="scripts/main.js" defer></script> -->
 
     <script src="scripts/globals.js" defer></script>
     <script src="scripts/main.js" defer></script>
@@ -193,47 +192,9 @@
 
 						<!-- (Hidden) Additional query fields -->
             <div id="queryFields" style="display: none">
-							<!-- Checkbox Fields -->
-              <section id="queryTickFields">
-								<!-- Original Cover -->
-                <div class="queryTickContainer">
-                  <input
-                    type="checkbox" name="queryCover"
-                    id="queryCover" class="queryTickInput"
-                  />
-                  <label for="queryCover">Original Cover</label>
-                </div>
-
-								<!-- Damaged Cover -->
-                <div class="queryTickContainer">
-                  <input
-                    type="checkbox" name="queryDmg"
-                    id="queryDmg" class="queryTickInput"
-                  />
-                  <label for="queryDmg">Damaged Cover</label>
-                </div>
-
-								<!-- Duplicated Record -->
-                <div class="queryTickContainer">
-                  <input
-                    type="checkbox" name="queryDupe"
-                    id="queryDupe" class="queryTickInput"
-                  />
-                  <label for="queryDupe">Duplicates</label>
-                </div>
-
-								<!-- Band -->
-                <div class="queryTickContainer">
-                  <input
-                    type="checkbox" name="queryBand"
-                    id="queryBand" class="queryTickInput"
-                  />
-                  <label for="queryBand">Band</label>
-                </div>
-              </section>
-
-							<!-- Search Fields -->
-              <section id="querySearchFields">
+              <h4 class="querySectionTitle">Search Queries</h4>
+              <!-- Search Fields -->
+              <section id="querySearchFields" class="querySectionContainer">
 								<!-- Record Title -->
                 <div class="querySearchContainer">
                   <label for="queryTitle">Filter Title: </label>
@@ -253,72 +214,126 @@
                 </div>
 
 								<!-- Record Year between x and y -->
-                <div class="querySearchContainer">
-                  <label for="queryYear">Filter Years: </label>
-                  <input
-                    type="range" name="queryYear"
-                    id="queryYearMin" class="querySearchInput"
-                  />
-                  <!-- <input type="range" name="queryYear" id="queryYearMax" class="querySearchInput"> -->
-                </div>
-
-								<!-- Query Sort -->
-                <div class="querySearchContainer">
-                  <label for="querySort">Sort by: </label>
-                  <select name="querySort" id="querySort">
-                    <option value="sortTitle">Title</option>
-                    <option value="sortArtist">Artist</option>
-                    <option value="sortYeaer">Year</option>
-                  </select>
+                <div class="querySearchContainer" id="queryYearContainer">
+                  <label for="queryYearMin">Filter Years: </label>
+                  <div>
+                    <input
+                      type="number" name="queryYear"
+                      id="queryYearMin" class="querySearchInput"
+                    />
+                    <input
+                      type="number" name="queryYear"
+                      id="queryYearMax" class="querySearchInput"
+                    />
+                  </div>
                 </div>
               </section>
 
+              <h4 class="querySectionTitle">Tick Queries</h4>
+							<!-- Checkbox Fields -->
+              <section id="queryTickFields" class="querySectionContainer">
+              <!-- Original Cover -->
+                <input
+                  type="checkbox" name="queryCover"
+                  id="queryCover" class="queryTickInput"
+                />
+                <label for="queryCover" class="tickQueryLabels">Cover Art</label>
+
+              <!-- Damaged Cover -->
+                <input
+                  type="checkbox" name="queryDmg"
+                  id="queryDmg" class="queryTickInput"
+                />
+                <label for="queryDmg" class="tickQueryLabels">Damaged</label>
+
+              <!-- Duplicated Record -->
+                <input
+                  type="checkbox" name="queryDupe"
+                  id="queryDupe" class="queryTickInput"
+                />
+                <label for="queryDupe" class="tickQueryLabels">Duplicates</label>
+
+              <!-- Band -->
+                <input
+                  type="checkbox" name="queryBand"
+                  id="queryBand" class="queryTickInput"
+                />
+                <label for="queryBand" class="tickQueryLabels">Band</label>
+
+              <!-- Dual artist -->
+                <input
+                  type="checkbox" name="queryDual"
+                  id="queryDual" class="queryTickInput"
+                />
+                <label for="queryDual" class="tickQueryLabels">Dual Artist</label>
+              </section>
+
+              <h4 class="querySectionTitle">Sort by</h4>
 							<!-- Column select -->
-              <section id="querySortFields">
-								<!-- Select Title Column -->
-                <div class="querySortContainer">
-									<!-- Select Title Column -->
-                  <input
-                    type="checkbox" name="titleColumn"
-                    id="titleColumn" class="queryColumns"
-                  />
-                  <label for="titleColumn">Title</label>
+              <section id="querySortFields" class="querySectionContainer">
+                
+								<!-- Query Sort -->
+                <label for="primarySort">Sort by: </label>
+                <select name="primarySort" id="primarySort">
+                  <option value="sortTitle">Title</option>
+                  <option value="sortArtist">Artist</option>
+                  <option value="sortYear">Year</option>
+                </select>
+                <button class="ascendButton" id="primaryAscend">
 
-									<!-- Select Artist Column -->
-                  <input
-                    type="checkbox" name="artistColumn"
-                    id="artistColumn" class="queryColumns"
-                  />
-                  <label for="artistColumn">Artist</label>
+                </button>
+                <select name="secondarySort" id="secondarySort">
+                  <option value="sortTitle">Title</option>
+                  <option value="sortYear">Year</option>
+                </select>
+                <button class="ascendButton" id="secondaryAscend">
 
-									<!-- Select Year Column -->
-                  <input
-                    type="checkbox" name="yearColumn"
-                    id="yearColumn" class="queryColumns"
-                  />
-                  <label for="yearColumn">Year</label>
+                </button>
+              </section>
 
-									<!-- Select Original Cover Column -->
-                  <input
-                    type="checkbox" name="artColumn"
-                    id="artColumn" class="queryColumns"
-                  />
-                  <label for="artColumn">Original cover</label>
+              <h4 class="querySectionTitle">Show Column</h4>
+              <section id="queryColumnFields" class="querySectionContainer">
+                <!-- Select Title Column -->
+                <input
+                  type="checkbox" name="titleColumn"
+                  id="titleColumn" class="queryColumns"
+                />
+                <label for="titleColumn" class="columnQueryLabels">Title</label>
 
-									<!-- Select Duplicate Column -->
-                  <input
-                    type="checkbox" name="dupeColumn"
-                    id="dupeColumn" class="queryColumns"
-                  />
-                  <label for="dupeColumn">Duplicate</label>
+                <!-- Select Artist Column -->
+                <input
+                  type="checkbox" name="artistColumn"
+                  id="artistColumn" class="queryColumns"
+                />
+                <label for="artistColumn" class="columnQueryLabels">Artist</label>
 
-									<!-- Select Damaged Column -->
-                  <input
-                    type="checkbox" name="dmgColumn"
-                    id="dmgColumn" class="queryColumns"
-                  />
-                  <label for="dmgColumn">Damaged</label>
-                </div>
+                <!-- Select Year Column -->
+                <input
+                  type="checkbox" name="yearColumn"
+                  id="yearColumn" class="queryColumns"
+                />
+                <label for="yearColumn" class="columnQueryLabels">Year</label>
+
+                <!-- Select Original Cover Column -->
+                <input
+                  type="checkbox" name="artColumn"
+                  id="artColumn" class="queryColumns"
+                />
+                <label for="artColumn" class="columnQueryLabels">Cover Art</label>
+
+                <!-- Select Duplicate Column -->
+                <input
+                  type="checkbox" name="dupeColumn"
+                  id="dupeColumn" class="queryColumns"
+                />
+                <label for="dupeColumn" class="columnQueryLabels">Duplicate</label>
+
+                <!-- Select Damaged Column -->
+                <input
+                  type="checkbox" name="dmgColumn"
+                  id="dmgColumn" class="queryColumns"
+                />
+                <label for="dmgColumn" class="columnQueryLabels">Damaged</label>
               </section>
             </div>
           </section>

@@ -15,7 +15,7 @@ const loginButton = document.getElementById("loginButton");
 const logoutButton = document.getElementById("logoutButton");
 const viewProfileButton = document.getElementById("viewProfileButton");
 
-// Containers
+// Main Containers
 const addWordsContainer = document.getElementById("addView");
 const viewWordsContainer = document.getElementById("viewView");
 const profileContainer = document.getElementById("profileView");
@@ -43,15 +43,47 @@ const queryContainer = document.getElementById("queryFields");
 // View Words - Query Individual Fields
 const queryTitle = document.getElementById("queryTitle");
 const queryArtist = document.getElementById("queryArtist");
+const queryYearMin = document.getElementById("queryYearMin");
+const queryYearMax = document.getElementById("queryYearMax");
+
+// View Words - Query checkbox fields
+const queryTickFields = document.getElementsByClassName("queryTickLabels")
+const columnTickFields = document.getElementsByClassName("columnTickLabels")
+
+// View Words - Query select fields
+const primarySort = document.getElementById("primarySort")
+const primaryAscend = document.getElementById("primaryAscend")
+const secondarySort = document.getElementById("secondarySort")
+const secondaryAscend = document.getElementById("secondaryAscend")
 
 // User Profile
 const userProfileTitle = document.getElementById("userProfileTitle");
 
-//Firebase Firestore
 let db = firebase.firestore();
-let artistDB = db.collection("artists");
-let recordDB = db.collection("records");
-let newArtistDB = db.collection("artistDB");
+console.log("1")
+//Firebase Firestore
+
+db.settings({
+  cacheSizeBytes: db.CACHE_SIZE_UNLIMITED
+});
+
+db.enablePersistence()
+.catch((err) => {
+  if (err.code == 'failed-precondition') {
+      // Multiple tabs open, persistence can only be enabled
+      // in one tab at a a time.
+      // ...
+  } else if (err.code == 'unimplemented') {
+      // The current browser does not support all of the
+      // features required to enable persistence
+      // ...
+  } else {
+    console.log(err)
+  }
+});
+
+const recordDB = db.collection("records");
+const artistDB = db.collection("artistsDB");
 
 // Firebase Authentication
 const auth = firebase.auth();

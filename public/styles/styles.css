@@ -28,7 +28,7 @@ nav .navButton:hover {
   background-color: #5c5c5c;
 }
 nav .navButton.navSelected:hover {
-  background-color: #008b34;
+  background-color: #007a29;
 }
 nav .navSelected {
   background-color: #019d3f;
@@ -37,7 +37,7 @@ nav #navProfile {
   background-color: #019d3f;
 }
 nav #navProfile:hover {
-  background-color: #008b34;
+  background-color: #007a29;
 }
 nav #navProfile #dropdownContent {
   background-color: #707070;
@@ -104,6 +104,20 @@ nav #title h1 {
 
 #profileContainer {
   background-color: white;
+}
+
+#queryFields #queryTickFields label:hover,
+#queryFields #queryColumnFields label:hover {
+  background-color: #eaeaea;
+}
+#queryFields #queryTickFields > input:checked + label,
+#queryFields #queryColumnFields > input:checked + label {
+  background-color: #12ac48;
+  color: white;
+}
+#queryFields #queryTickFields > input:checked + label:hover,
+#queryFields #queryColumnFields > input:checked + label:hover {
+  background-color: #019d3f;
 }
 
 /*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
@@ -330,18 +344,59 @@ main #profileView {
 #queryFields {
   display: none;
   flex-direction: column;
+  padding: 0.5rem;
 }
-#queryFields #queryTickFields {
+#queryFields > h4 {
+  margin: 0;
+}
+#queryFields .querySectionContainer {
   display: flex;
   flex-direction: row;
 }
-#queryFields #querySearchFields {
+#queryFields .querySectionContainer > div {
+  padding: 0.5rem;
+}
+#queryFields #querySearchFields .querySearchContainer {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0.5rem;
+}
+#queryFields #querySearchFields .querySearchContainer > label {
+  padding-right: 0.5rem;
+}
+#queryFields #querySearchFields #queryYearContainer > div input {
+  width: 4rem;
+}
+#queryFields #queryTickFields, #queryFields #queryColumnFields {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+#queryFields #queryTickFields input, #queryFields #queryColumnFields input {
+  display: none;
+}
+#queryFields #queryTickFields label, #queryFields #queryColumnFields label {
+  border: 1px solid;
+  padding: 0.3rem 0.5rem;
+  border-radius: 0.5rem;
+  margin: 0.5rem;
+  width: 100%;
+  text-align: center;
 }
 #queryFields #querySortFields {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  padding: 0.5rem;
+}
+#queryFields #querySortFields > label {
+  align-self: center;
+  padding-right: 0.5rem;
+}
+#queryFields #querySortFields > button {
+  height: 1.5rem;
+  width: 1.5rem;
+  margin-right: 0.5rem;
 }
 
 .recordTable {
