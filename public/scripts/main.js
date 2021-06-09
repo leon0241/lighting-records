@@ -6,6 +6,10 @@ let rowIndex = 0;
 |                           |
 \__________________________*/
 
+/*
+ - Navigation buttons
+*/
+
 // view records button view
 viewRecordsButton.addEventListener("click", (e) => {
   addWordsContainer.style.display = "none";
@@ -20,14 +24,24 @@ addRecordsButton.addEventListener("click", (e) => {
   addWordsContainer.style.display = "flex";
   viewWordsContainer.style.display = "none";
   profileContainer.style.display = "none";
-  viewRecordsButton.classList.remove("navSelected");
   addRecordsButton.classList.add("navSelected");
+  viewRecordsButton.classList.remove("navSelected");
 });
 
-let yearGroup = document.getElementsByClassName("yearInput");
+viewProfileButton.addEventListener("click", (e) => {
+  addWordsContainer.style.display = "none";
+  profileContainer.style.display = "flex";
+  viewWordsContainer.style.display = "none";
+  addRecordsButton.classList.remove("navSelected");
+  viewRecordsButton.classList.remove("navSelected");
+});
+
+/*
+ - Year input check
+*/
 
 // for each year group input
-Array.from(yearGroup).forEach((element) => {
+Array.from(document.getElementsByClassName("yearInput")).forEach((element) => {
   element.addEventListener("keyup", (e) => {
     let content = element.value;
 
@@ -39,10 +53,30 @@ Array.from(yearGroup).forEach((element) => {
   });
 });
 
+/*
+ - Profile pop up
+*/
+
+// Event listener for hover over profile pop up
+profilePopup.addEventListener("mouseover", (e) => {
+  dropdownContent.style.display = "flex";
+});
+
+// Event listener for hover out profile pop up
+profilePopup.addEventListener("mouseout", (e) => {
+  dropdownContent.style.display = "none";
+});
+
+/*
+ - Keyboard Shortcuts
+*/
+
 // Add a new row on ctrl + insert
 document.addEventListener("keydown", (e) => {
   if (e.ctrlKey && e.key == "Insert") {
     addNewRow(e);
+
+  // Remove last child on ctrl + delete
   } else if (e.ctrlKey && e.key == "Delete") {
     let newest = recordSectionContainer.lastChild;
     recordSectionContainer.removeChild(newest);
@@ -53,13 +87,54 @@ document.addEventListener("keydown", (e) => {
 // Event listener for add button onclick
 addButton.addEventListener("click", addNewRow);
 
+// Event listener for filter options
 document.getElementById("filterToggle").addEventListener("click", (e) => {
-  if (queryContainer.style.display === "none") {
-    queryContainer.style.display = "flex";
-  } else {
-    queryContainer.style.display = "none";
-  }
+  queryContainer.style.display =
+    (queryContainer.style.display === "none") ? "flex" : "none";
 });
+
+
+/*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
+|                          |
+|  Querying records stuff  |
+|                          |
+\_________________________*/
+
+const tableBody = document.getElementById("tableBody");
+
+// View Words - Query Fields Container
+const queryContainer = document.getElementById("queryFields");
+
+// View Words - Query Individual Fields
+const queryTitle = document.getElementById("queryTitle");
+const queryArtist = document.getElementById("queryArtist");
+const queryYearMin = document.getElementById("queryYearMin");
+const queryYearMax = document.getElementById("queryYearMax");
+
+// View Words - Query checkbox fields
+const queryTickFields = document.getElementsByClassName("queryTickLabels")
+const columnTickFields = document.getElementsByClassName("columnTickLabels")
+
+// View Words - Query select fields
+const primarySort = document.getElementById("primarySort")
+const primaryAscend = document.getElementById("primaryAscend")
+const secondarySort = document.getElementById("secondarySort")
+const secondaryAscend = document.getElementById("secondaryAscend")
+
+// queryContainer, queryTitle, queryArtist, queryYearMin, queryYearMax
+// queryTickFields(class), columnTickFields(class)
+// primarySort, primaryAscend, secondarySort, secondaryAscend
+
+queryTitle.addEventListener("change", (e) => {
+  
+})
+
+/*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
+|                           |
+|  Functions and stuff idk  |
+|                           |
+\__________________________*/
+
 
 // Styling dom showing if there's an artist or not
 function noArtist(bool) {
@@ -78,6 +153,24 @@ function noArtist(bool) {
     document.getElementById("artistBand").disabled = true;
     document.getElementById("forArtistBand").classList.add("disabled");
   }
+}
+
+// resets the form
+function resetForm() {
+  // dom(?) arr of children
+  let arr = recordSectionContainer.children;
+
+  // for each element of arr converted to array
+  Array.from(arr).forEach((e) => {
+    // if it's not the first or submit group then ->
+    if (e.id != "recordGroup0" && e.id != "submitGroup") {
+      // remove child
+      recordSectionContainer.removeChild(e);
+    }
+  });
+
+  // reset form
+  recordForm.reset();
 }
 
 // Adds a new row
@@ -168,42 +261,32 @@ function clearChild(that) {
   recordSectionContainer.removeChild(xParent);
 }
 
-profilePopup.addEventListener("mouseover", (e) => {
-  dropdownContent.style.display = "flex";
-});
-
-profilePopup.addEventListener("mouseout", (e) => {
-  dropdownContent.style.display = "none";
-});
-
-viewProfileButton.addEventListener("click", (e) => {
-  addWordsContainer.style.display = "none";
-  viewWordsContainer.style.display = "none";
-  profileContainer.style.display = "flex";
-  addRecordsButton.classList.remove("navSelected");
-  viewRecordsButton.classList.remove("navSelected");
-});
-
 /*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
 |                           |
 |  Firebase Authentication  |
 |                           |
 \__________________________*/
 
+// On login button click
 loginButton.addEventListener("click", (e) => {
   auth.signInWithPopup(provider);
 });
 
+// On logout button click
 logoutButton.addEventListener("click", (e) => {
   auth.signOut();
 });
 
+// On log in state changed
 auth.onAuthStateChanged((user) => {
+  // If signed in
   if (user) {
     logoutButton.style.display = "inline";
     loginButton.style.display = "none";
     viewProfileButton.classList.remove("hideProfileButton");
     userProfileTitle.textContent = `Profile - ${user.displayName}`;
+
+  // If not signed in
   } else {
     loginButton.style.display = "inline";
     logoutButton.style.display = "none";
