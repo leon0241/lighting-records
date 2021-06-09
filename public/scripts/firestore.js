@@ -267,6 +267,9 @@ function submitQuery(that) {
 
   tableBody.innerHTML = "";
 
+  
+
+
   filterQuery.get({source: "cache"}).orderBy("name").then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
       console.log(doc.data())

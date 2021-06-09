@@ -542,7 +542,9 @@ main {
 
 // View Records > Table
 .recordTable {
+  border-spacing: 0 0.2rem;
   width: 100%;
+  
   colgroup {
     #colTitle {
       width: 35%;
@@ -579,6 +581,3 @@ main {
 |  View Profile View  |
 |                     |
 \____________________*/
-
-#profileView {
-}

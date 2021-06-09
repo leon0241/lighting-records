@@ -403,6 +403,7 @@ main #profileView {
 }
 
 .recordTable {
+  border-spacing: 0 0.2rem;
   width: 100%;
 }
 .recordTable colgroup #colTitle {
