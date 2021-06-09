@@ -77,23 +77,25 @@ nav #title h1 {
   color: white;
   transition: background-color 0.5s, color 0.5s;
 }
-#addRecords #submitGroup .submitButton {
+#addRecords #submitGroup .addRecordButton {
   border: none;
   border-radius: 5px;
-  padding: 0.75rem;
+  padding: 0.5rem 0.75rem;
   margin: 0 0.25rem;
 }
-#addRecords #submitGroup #addAnotherRecord {
+
+.secondaryButtons {
   background-color: #dbdbdb;
 }
-#addRecords #submitGroup #addAnotherRecord:hover {
+.secondaryButtons:hover {
   cursor: pointer;
   background-color: #b8b8b8;
 }
-#addRecords #submitGroup #submitRecordsButton {
+
+.submitButtons {
   background-color: #12ac48;
 }
-#addRecords #submitGroup #submitRecordsButton:hover {
+.submitButtons:hover {
   cursor: pointer;
   background-color: #019d3f;
 }
@@ -368,15 +370,18 @@ main #profileView {
 #queryFields #querySearchFields #queryYearContainer > div input {
   width: 4rem;
 }
-#queryFields #queryTickFields, #queryFields #queryColumnFields {
+#queryFields #queryTickFields,
+#queryFields #queryColumnFields {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
 }
-#queryFields #queryTickFields input, #queryFields #queryColumnFields input {
+#queryFields #queryTickFields input,
+#queryFields #queryColumnFields input {
   display: none;
 }
-#queryFields #queryTickFields label, #queryFields #queryColumnFields label {
+#queryFields #queryTickFields label,
+#queryFields #queryColumnFields label {
   border: 1px solid;
   padding: 0.3rem 0.5rem;
   border-radius: 0.5rem;
@@ -398,8 +403,20 @@ main #profileView {
   width: 1.5rem;
   margin-right: 0.5rem;
 }
-#queryFields #querySortFields > button.descendingOrder {
+#queryFields #querySortFields > button.ascendingOrder {
   transform: rotate(180deg);
+}
+#queryFields #querySubmitField {
+  display: flex;
+  flex-direction: row;
+  padding: 0.5rem;
+  justify-content: end;
+}
+#queryFields #querySubmitField button {
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 0.75rem;
+  margin: 0 0.25rem;
 }
 
 .recordTable {

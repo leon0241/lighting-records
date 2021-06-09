@@ -76,7 +76,7 @@ document.addEventListener("keydown", (e) => {
   if (e.ctrlKey && e.key == "Insert") {
     addNewRow(e);
 
-  // Remove last child on ctrl + delete
+    // Remove last child on ctrl + delete
   } else if (e.ctrlKey && e.key == "Delete") {
     let newest = recordSectionContainer.lastChild;
     recordSectionContainer.removeChild(newest);
@@ -90,9 +90,8 @@ addButton.addEventListener("click", addNewRow);
 // Event listener for filter options
 document.getElementById("filterToggle").addEventListener("click", (e) => {
   queryContainer.style.display =
-    (queryContainer.style.display === "none") ? "flex" : "none";
+    queryContainer.style.display === "none" ? "flex" : "none";
 });
-
 
 /*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
 |                          |
@@ -101,36 +100,34 @@ document.getElementById("filterToggle").addEventListener("click", (e) => {
 \_________________________*/
 
 primaryAscend.addEventListener("click", (e) => {
-  primaryAscend.classList.contains("descendingOrder") === false
-    ? primaryAscend.classList.add("descendingOrder")
-    : primaryAscend.classList.remove("descendingOrder");
+  primaryAscend.classList.contains("ascendingOrder") === false
+    ? primaryAscend.classList.add("ascendingOrder")
+    : primaryAscend.classList.remove("ascendingOrder");
 });
 
-secondaryAscend.addEventListener("click",  (e) => {
-  secondaryAscend.classList.contains("descendingOrder") === false
-    ? secondaryAscend.classList.add("descendingOrder")
-    : secondaryAscend.classList.remove("descendingOrder");
-})
+secondaryAscend.addEventListener("click", (e) => {
+  secondaryAscend.classList.contains("ascendingOrder") === false
+    ? secondaryAscend.classList.add("ascendingOrder")
+    : secondaryAscend.classList.remove("ascendingOrder");
+});
 
 primarySort.addEventListener("change", (e) => {
   if (primarySort.value != "name") {
     secondarySort.disabled = true;
-    secondaryAscend.style.pointerEvents = "none"
-    secondaryAscend.style.opacity = "50%"
+    secondaryAscend.style.pointerEvents = "none";
+    secondaryAscend.style.opacity = "50%";
   } else {
     secondarySort.disabled = false;
-    secondaryAscend.style.pointerEvents = "auto"
-    secondaryAscend.style.opacity = "100%"
+    secondaryAscend.style.pointerEvents = "auto";
+    secondaryAscend.style.opacity = "100%";
   }
-})
-
+});
 
 /*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
 |                           |
 |  Functions and stuff idk  |
 |                           |
 \__________________________*/
-
 
 // Styling dom showing if there's an artist or not
 function noArtist(bool) {
@@ -282,7 +279,7 @@ auth.onAuthStateChanged((user) => {
     viewProfileButton.classList.remove("hideProfileButton");
     userProfileTitle.textContent = `Profile - ${user.displayName}`;
 
-  // If not signed in
+    // If not signed in
   } else {
     loginButton.style.display = "inline";
     logoutButton.style.display = "none";

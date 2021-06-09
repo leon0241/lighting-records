@@ -160,7 +160,7 @@
 							<!-- Add another record button -->
               <button
                 type="button" name="addAnotherRecord"
-                class="submitButton" id="addAnotherRecord"
+                class="addRecordButton secondaryButtons" id="addAnotherRecord"
               >
                 Add another record by same artist
               </button>
@@ -168,7 +168,7 @@
 							<!-- Submit Button -->
               <button 
                 type="submit" name="submit" 
-                class="submitButton" id="submitRecordsButton"
+                class="addRecordButton submitButtons" id="submitRecordsButton"
               >
                 Submit
               </button>
@@ -278,17 +278,17 @@
                 <label for="primarySort">Sort by: </label>
                 <select name="primarySort" id="primarySort">
                   <option value="name">Artist</option>
-                  <option value="title">Title</option>
-                  <option value="year">Year</option>
+                  <option value="title" disabled>Title</option>
+                  <option value="year" disabled>Year</option>
                 </select>
-                <button class="ascendButton" id="primaryAscend" type="button">
+                <button class="ascendButton ascendingOrder" id="primaryAscend" type="button">
                   ▲ 
                 </button>
                 <select name="secondarySort" id="secondarySort">
                   <option value="title">Title</option>
                   <option value="year">Year</option>
                 </select>
-                <button class="ascendButton" id="secondaryAscend" type="button">
+                <button class="ascendButton ascendingOrder" id="secondaryAscend" type="button">
                   ▲ 
                 </button>
               </section>
@@ -339,10 +339,10 @@
               </section>
 
               <section id="querySubmitField" class="querySectionContainer">
-                <button type="button" id="queryResetButton" class="queryButton">
+                <button type="button" id="queryResetButton" class="queryButton secondaryButtons">
                   Reset
                 </button>
-                <button type="submit" id="querySubmitButton" class="queryButton">
+                <button type="submit" id="querySubmitButton" class="queryButton submitButtons">
                   Submit
                 </button>
               </section>

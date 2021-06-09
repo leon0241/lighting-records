@@ -105,7 +105,6 @@ nav {
   border-radius: 5px;
 }
 
-
 #addArtist {
   .artistHandler {
     &#noArtistFound {
@@ -113,7 +112,7 @@ nav {
     }
 
     &#artistFound {
-      color: $frogGreen
+      color: $frogGreen;
     }
   }
 }
@@ -141,32 +140,33 @@ nav {
   }
 
   #submitGroup {
-    .submitButton {
+    .addRecordButton {
       border: none;
       border-radius: 5px;
-      padding: 0.75rem;
+      padding: 0.5rem 0.75rem;
       margin: 0 0.25rem;
     }
+  }
+}
 
-    #addAnotherRecord {
-      background-color: $light1;
+.secondaryButtons {
+  background-color: $light1;
 
       &:hover {
         cursor: pointer;
         background-color: $gray3;
       }
-    }
+}
 
-    #submitRecordsButton {
-      background-color: $frogLight1;
+.submitButtons {
+  background-color: $frogLight1;
 
       &:hover {
         cursor: pointer;
         background-color: $frogGreen;
       }
-    }
-  }
 }
+
 
 #viewRecordsContainer {
   background-color: white;
@@ -493,14 +493,15 @@ main {
 
     #queryYearContainer > div {
       // @include initflex("row");
-      
+
       input {
         width: 4rem;
       }
     }
   }
 
-  #queryTickFields, #queryColumnFields {
+  #queryTickFields,
+  #queryColumnFields {
     @include initflex("row");
     justify-content: space-evenly;
 
@@ -533,9 +534,22 @@ main {
       width: 1.5rem;
       margin-right: 0.5rem;
 
-      &.descendingOrder {
+      &.ascendingOrder {
         transform: rotate(180deg);
       }
+    }
+  }
+
+  #querySubmitField {
+    @include initflex("row");
+    padding: 0.5rem;
+    justify-content: end;
+
+    button {
+      border: none;
+      border-radius: 5px;
+      padding: 0.5rem 0.75rem;
+      margin: 0 0.25rem;
     }
   }
 }
@@ -544,7 +558,7 @@ main {
 .recordTable {
   border-spacing: 0 0.2rem;
   width: 100%;
-  
+
   colgroup {
     #colTitle {
       width: 35%;

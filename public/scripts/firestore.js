@@ -1,4 +1,4 @@
-console.log("2")
+console.log("2");
 let artistFound = false;
 let artistID = "";
 let database = db.collection("artistsNew");
@@ -26,7 +26,7 @@ artistName.addEventListener("change", (e) => {
         // no artist DOM manipulation
         noArtist(true);
 
-      // if querySnapshot isn't empty
+        // if querySnapshot isn't empty
       } else {
         // set the id to the found doc's id
         querySnapshot.forEach((doc) => {
@@ -52,9 +52,9 @@ function submitForm(that) {
   let artistValues = {
     name: valueArr["artistName"].value.toLowerCase(),
     band: valueArr["artistBand"].checked,
-  }
+  };
 
-  let recordValues = []
+  let recordValues = [];
   let seclen = recordSectionContainer.children.length - 1;
 
   // Repeat for how many record sections there are
@@ -67,8 +67,8 @@ function submitForm(that) {
         damaged: valueArr[`coverDmg${i}`].checked,
         duplicate: valueArr[`coverArt${i}`].checked,
         original: valueArr[`duplicate${i}`].checked,
-      }
-    }
+      },
+    };
 
     // Append to array of objects
     recordValues.push(recordValue);
@@ -88,23 +88,23 @@ function addToFirestore(artist, records) {
   if (artistFound === false) {
     // Add entry to artistDB
     artistDB
-    .add(artist)
-    // Then, store the id and add record
-    .then((docref) => {
-      artistID = docref.id;
+      .add(artist)
+      // Then, store the id and add record
+      .then((docref) => {
+        artistID = docref.id;
 
-      // Store reference to subcollection
-      let subcollection = docref.collection("recordDB")
+        // Store reference to subcollection
+        let subcollection = docref.collection("recordDB");
 
-      // Call add records function
-      addRecords(records, subcollection);
-    });
+        // Call add records function
+        addRecords(records, subcollection);
+      });
 
-  // If artist is found
+    // If artist is found
   } else {
     // Store reference to subcollection
     let artistRef = artistDB.doc(artistID);
-    let subcollection = artistRef.collection("recordDB")
+    let subcollection = artistRef.collection("recordDB");
 
     // Call add records function
     addRecords(records, subcollection);
@@ -114,7 +114,7 @@ function addToFirestore(artist, records) {
 // Add records to record collection
 function addRecords(records, collection) {
   // for each value in record, add to record with values
-  records.forEach(record => collection.add(record));
+  records.forEach((record) => collection.add(record));
 }
 
 /*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
@@ -123,20 +123,23 @@ function addRecords(records, collection) {
 |                            |
 \___________________________*/
 
-
-artistDB.orderBy("name").get({ source: 'cache' })
-.then((querySnapshot) => {
-  if (querySnapshot.empty) {
-    artistDB.orderBy("name").get({ source: 'server' })
-    .then((querySnapshot) => {
-      loadDatabaseServer(querySnapshot)
-    })
-    console.log("Loading from server :(")
-  } else {
-    loadDatabase(querySnapshot)
-    console.log("Loading from cache :)")
-  }
-})
+artistDB
+  .orderBy("name")
+  .get({ source: "cache" })
+  .then((querySnapshot) => {
+    if (querySnapshot.empty) {
+      artistDB
+        .orderBy("name")
+        .get({ source: "server" })
+        .then((querySnapshot) => {
+          loadDatabaseServer(querySnapshot);
+        });
+      console.log("Loading from server :(");
+    } else {
+      loadDatabase(querySnapshot);
+      console.log("Loading from cache :)");
+    }
+  });
 
 function loadDatabase(querySnapshot) {
   tableBody.innerHTML = "";
@@ -148,7 +151,7 @@ function loadDatabase(querySnapshot) {
 
     recordsList
       .orderBy("title")
-      .get({source: "cache"})
+      .get({ source: "cache" })
       .then((recordSnap) => {
         recordSnap.forEach((recordDoc) => {
           let data = recordDoc.data();
@@ -169,7 +172,7 @@ function loadDatabaseServer(querySnapshot) {
 
     recordsList
       .orderBy("title")
-      .get({source: "server"})
+      .get({ source: "server" })
       .then((recordSnap) => {
         recordSnap.forEach((recordDoc) => {
           let data = recordDoc.data();
@@ -182,12 +185,15 @@ function loadDatabaseServer(querySnapshot) {
 
 // add row dom
 function addTableRow(data) {
-
   // console.log(data)
 
   let stringValues = [data.title, data.artistRef, data.year];
 
-  let checkValues = [data.checks.original, data.checks.damaged, data.checks.duplicate]
+  let checkValues = [
+    data.checks.original,
+    data.checks.damaged,
+    data.checks.duplicate,
+  ];
 
   let row = tableBody.insertRow(-1);
 
@@ -216,24 +222,26 @@ function addTableRow(data) {
 |                            |
 \___________________________*/
 
-
 // queryContainer, queryTitle, queryArtist, queryYearMin, queryYearMax
 // queryTickFields(class), columnTickFields(class)
 // primarySort, primaryAscend, secondarySort, secondaryAscend
 // queryReset, querySubmit
 
 function submitQuery(that) {
-  let elements = that.elements
+  let elements = that.elements;
 
   // console.log(that.elements["queryTitle"])
 
-  ascFilters = document.getElementsByClassName("ascendButton")
+  ascFilters = document.getElementsByClassName("ascendButton");
 
-  // If descending return true, if ascending return false
-  primary = ascFilters[0].classList.contains("descendingOrder") ? true : false
-  secondary = ascFilters[1].classList.contains("descendingOrder") ? true : false
-
-
+  // If ascending return true, if descending return false
+  primary = ascFilters[0].classList.contains("ascendingOrder") 
+    ? true 
+    : false;
+  
+  secondary = ascFilters[1].classList.contains("ascendingOrder")
+    ? true
+    : false;
 
   let filters = {
     name: elements["queryArtist"].value.toLowerCase(),
@@ -251,87 +259,104 @@ function submitQuery(that) {
       primarySort: elements["primarySort"].value,
       primaryAsc: primary,
       secondarySort: elements["secondarySort"].value,
-      secondaryAsc: secondary
-    }
-  }
+      secondaryAsc: secondary,
+    },
+  };
 
-  let filterQuery = artistDB
+  let filterQuery = artistDB;
 
   if (filters.name != "") {
-    filterQuery = filterQuery.where("name", "==", filters.name)
+    filterQuery = filterQuery.where("name", "==", filters.name);
   } else if (filters.checks.band === true) {
-    filterQuery = filterQuery.where("band", "==", true)
+    filterQuery = filterQuery.where("band", "==", true);
   }
 
-  console.log(filters)
+  console.log(filters);
 
   tableBody.innerHTML = "";
 
-  let secondaryCheck = false;
-
-  if (filters.sorts.primarySort === "name") {
-    filterQuery = filterQuery.orderBy("name")
-    secondaryCheck = true;
-    console.log("passed")
+  if (filters.sorts.primaryAsc === false) {
+    filterQuery = filterQuery.orderBy("name", "desc");
+  } else {
+    filterQuery = filterQuery.orderBy("name");
   }
-  console.log(filters.sorts.primarySort)
-  console.log(filters.sorts.secondarySort)
 
-  filterQuery.get({source: "cache"}).then((querySnapshot) => {
+
+  filterQuery.get({ source: "cache" }).then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
       // console.log(doc.data())
       let recordsList = doc.ref.collection("recordDB");
       let artistName = doc.data().name;
 
-      let recordFilterQuery = recordsList
+      let recordFilterQuery = recordsList;
 
+      // Cursed conditional checks (DO NOT TRY THIS AT HOME)
       if (filters.title != "") {
-        recordFilterQuery = recordFilterQuery.where("title", "==", filters.title)
+        recordFilterQuery = recordFilterQuery.where(
+          "title",
+          "==",
+          filters.title
+        );
       }
       // if (filters.yearMin != "") {
       //   recordFilterQuery = recordFilterQuery.where("year", ">=", filters.yearMin)
-      // } 
+      // }
       // if (filters.yearMax != "") {
       //   recordFilterQuery = recordFilterQuery.where("year", "<=", filters.yearMax)
-      // } 
+      // }
       if (filters.checks.original === true) {
-        recordFilterQuery = recordFilterQuery.where("checks.original", "==", true)
-      } 
+        recordFilterQuery = recordFilterQuery.where(
+          "checks.original",
+          "==",
+          true
+        );
+      }
       if (filters.checks.damaged === true) {
-        recordFilterQuery = recordFilterQuery.where("checks.damaged", "==", true)
-      } 
+        recordFilterQuery = recordFilterQuery.where(
+          "checks.damaged",
+          "==",
+          true
+        );
+      }
       if (filters.checks.duplicate === true) {
-        recordFilterQuery = recordFilterQuery.where("checks.duplicate", "==", true)
+        recordFilterQuery = recordFilterQuery.where(
+          "checks.duplicate",
+          "==",
+          true
+        );
       }
 
-      if (secondaryCheck === true) {
-        recordFilterQuery = recordFilterQuery.orderBy(filters.sorts.secondarySort)
+      if (filters.sorts.secondaryAsc === false) {
+        recordFilterQuery = recordFilterQuery.orderBy(
+          filters.sorts.secondarySort, "desc"
+        );
       } else {
-        recordFilterQuery = recordFilterQuery.orderBy(filters.sorts.primarySort)
+        recordFilterQuery = recordFilterQuery.orderBy(
+          filters.sorts.secondarySort
+        );
       }
 
-      recordFilterQuery.get({source: "cache"})
-      .then((recordSnap) => {
+      recordFilterQuery.get({ source: "cache" }).then((recordSnap) => {
         recordSnap.forEach((recordDoc) => {
           let data = recordDoc.data();
           data.artistRef = artistName;
           addTableRow(data);
         });
       });
-    })
-  })
+    });
+  });
 }
 
-
-
 queryReset.addEventListener("click", (e) => {
-  queryForm.reset()
+  queryForm.reset();
 
-  artistDB.orderBy("name").get({ source: 'cache' })
-  .then((querySnapshot) => {
-    loadDatabase(querySnapshot)
-  })
-})
+  artistDB
+    .orderBy("name")
+    .get({ source: "cache" })
+    .then((querySnapshot) => {
+      loadDatabase(querySnapshot);
+    });
+});
 
 // let string = `.where("name", "==" , "t.rex")`
 // let compstring = artistDB.where("band", "==", )
@@ -373,8 +398,6 @@ queryReset.addEventListener("click", (e) => {
 //     });
 //   });
 
-
-
 //OLD CODE
 // // On snapshot aka database change
 // recordDB.orderBy("name").get().then(querySnapshot => {
@@ -408,7 +431,6 @@ queryReset.addEventListener("click", (e) => {
 //     }
 //   })
 // })
-
 
 /*‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\
 |                                        |
