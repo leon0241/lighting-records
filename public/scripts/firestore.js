@@ -265,34 +265,9 @@ function submitQuery(that) {
 
   console.log(filters)
 
-  // let recordFiltersArray = {}
-
-  // if (filters.title != "") {
-  //   recordFiltersArray.name = filters.title
-  // }
-  // if (filters.yearMin != "") {
-  //   recordFiltersArray.yearMin = filters.yearMin
-  // } 
-  // if (filters.yearMax != "") {
-  //   recordFiltersArray.yearMax = filters.yearMax
-  // } 
-  // if (filters.checks.original === true) {
-  //   recordFiltersArray.original = true
-  // } 
-  // if (filters.checks.damaged === true) {
-  //   recordFiltersArray.damaged = true
-  // } 
-  // if (filters.checks.duplicate === true) {
-  //   recordFiltersArray.duplicate = true
-  // }
-  // if (filters.checks.dual === true) {
-  //   recordFiltersArray.dual = true
-  // }
-  // console.log(recordFiltersArray)
-
   tableBody.innerHTML = "";
 
-  filterQuery.get({source: "cache"}).then((querySnapshot) => {
+  filterQuery.get({source: "cache"}).orderBy("name").then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
       console.log(doc.data())
       let recordsList = doc.ref.collection("recordDB");

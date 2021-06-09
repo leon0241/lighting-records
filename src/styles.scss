@@ -561,6 +561,14 @@ main {
     }
   }
 
+  tr:nth-child(even) {
+    background-color: $light1;
+  }
+
+  tr:nth-child(odd) {
+    background-color: white;
+  }
+
   .tableCheckbox {
     pointer-events: none;
   }

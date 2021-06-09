@@ -417,6 +417,12 @@ main #profileView {
 .recordTable colgroup .tableColCheck {
   width: 10%;
 }
+.recordTable tr:nth-child(even) {
+  background-color: #dbdbdb;
+}
+.recordTable tr:nth-child(odd) {
+  background-color: white;
+}
 .recordTable .tableCheckbox {
   pointer-events: none;
 }
